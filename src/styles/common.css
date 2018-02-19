@@ -1,0 +1,45 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend{
+    margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-family: inherit; font-size:100%; text-align: left;
+    vertical-align: baseline;
+    }
+    
+    img {
+    border:none;
+    }
+    li{
+        list-style: none;
+    }
+    
+    /* 基础样式----------------------------------------*/
+    
+    p{
+    margin: 0
+    }
+    /*--- 链接样式 ---*/
+    
+    a:hover, a:active{
+    text-decoration:none;
+    }
+    a{
+    cursor:pointer;
+    }
+    .left {float:left;}
+    .right {float:right;}
+    .small {font-size:.625em;}
+    .large {font-size:1em;}
+    .hide {display:none;}
+    
+    .clearfix {
+        *zoom: 1;
+    }
+    
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        line-height: 0;
+        content: "";
+    }
+    
+    .clearfix:after {
+        clear: both;
+    }
