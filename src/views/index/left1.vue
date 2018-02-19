@@ -181,7 +181,7 @@ export default {
           x: "center",
           textStyle: {
                   color: "#fff",
-                  fontSize: 14
+                  fontSize: 16
                 }
         },
         tooltip: {
