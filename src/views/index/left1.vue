@@ -10,7 +10,7 @@
         <Col span="12">
         <div>
            <Row>
-              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue">25600起</span></Col>
+              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue"><router-link :to="{ path: 'dayevent'}" target="_blank">25600起</router-link></span></Col>
               <Col span="12"><span class="text-middle-white">日事件已处理数：</span><br><span class="text-large-blue">25595起</span></Col>
           </Row>
           <Row>
