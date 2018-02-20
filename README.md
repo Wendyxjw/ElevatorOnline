@@ -17,4 +17,10 @@ npm run dev
 ```bush
 npm run build
 ```
+### 本地打开build页面
+```
+npm install serve -g
+cd dist
+serve
+```
 
