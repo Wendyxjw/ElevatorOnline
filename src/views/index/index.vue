@@ -23,7 +23,7 @@ height: 100%;
     display: inline-block;
     overflow-y: auto;
     height: 100%;
-}
+} 
 .left-box{
     width: 30%;
     min-width: 800px;
