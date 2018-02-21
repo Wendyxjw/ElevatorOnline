@@ -5,7 +5,9 @@ import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
-
+import axios from 'axios'
+Vue.prototype.$axios = axios
+require('./mock')
 Vue.use(VueRouter);
 Vue.use(iView);
 

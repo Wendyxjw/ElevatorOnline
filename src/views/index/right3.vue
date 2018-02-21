@@ -53,6 +53,10 @@ export default {
           right:0,
           top: 20,
           bottom: 20,
+          textStyle: {
+            color: "#fff",
+            fontSize: 12
+          }
         },
         toolbox: {
           show: true,
@@ -72,12 +76,30 @@ export default {
           {
             type: "category",
             axisTick: { show: false },
-            data: ["2012", "2013", "2014", "2015", "2016"]
+            data: ["2012", "2013", "2014", "2015", "2016"],
+            axisLabel:{
+              color:"#fff",
+              fontSize:12,
+            },
+            axisLine:{
+              lineStyle:{
+                color:"#fff"
+              }
+            }
           }
         ],
         yAxis: [
           {
-            type: "value"
+            type: "value",
+            axisLabel:{
+              color:"#fff",
+              fontSize:12,
+            },
+            axisLine:{
+              lineStyle:{
+                color:"#fff"
+              }
+            }
           }
         ],
         series: [

@@ -51,11 +51,20 @@ export default {
     };
   },
   mounted() {
+    this.getData()
     this.initChart1();
     this.initChart2();
     this.initChart3();
   },
   methods: {
+    getData() {
+      this.$axios.get("/api/index/DayHandleData").then(res => {
+        if(res.data.Status){
+          var data=res.data.Data;
+        }
+        
+      });
+    },
     initChart1() {
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById("chart1"));
@@ -69,9 +78,9 @@ export default {
           top: 0,
           data: ["直接访问", "邮件营销", "联盟广告"],
           textStyle: {
-                  color: "#fff",
-                  fontSize: 12
-                }
+            color: "#fff",
+            fontSize: 12
+          }
         },
         series: [
           {
@@ -106,11 +115,10 @@ export default {
             data: [
               { value: 335, name: "直接访问" },
               { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
+              { value: 234, name: "联盟广告" }
             ]
           }
-        ],
-        
+        ]
       };
 
       // 绘制图表
@@ -123,9 +131,9 @@ export default {
           text: "故障分类",
           x: "center",
           textStyle: {
-                  color: "#fff",
-                  fontSize: 16
-                }
+            color: "#fff",
+            fontSize: 16
+          }
         },
         tooltip: {
           trigger: "item",
@@ -139,9 +147,9 @@ export default {
           bottom: 20,
           data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "sssss"],
           textStyle: {
-                  color: "#fff",
-                  fontSize: 14  
-                }
+            color: "#fff",
+            fontSize: 14
+          }
         },
         series: [
           {
@@ -149,7 +157,7 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["60%", "50%"],
-           data: [
+            data: [
               { value: 335, name: "直接访问", label: { fontSize: 14 } },
               { value: 310, name: "邮件营销", label: { fontSize: 14 } },
               { value: 234, name: "联盟广告", label: { fontSize: 14 } },
@@ -163,9 +171,9 @@ export default {
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
             },
-            label:{
-              color:"#fff",
-              fontSize:12
+            label: {
+              color: "#fff",
+              fontSize: 12
             }
           }
         ]
@@ -180,9 +188,9 @@ export default {
           text: "故障部件",
           x: "center",
           textStyle: {
-                  color: "#fff",
-                  fontSize: 16
-                }
+            color: "#fff",
+            fontSize: 16
+          }
         },
         tooltip: {
           trigger: "item",
@@ -196,9 +204,9 @@ export default {
           bottom: 20,
           data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "sssss"],
           textStyle: {
-                  color: "#fff",
-                  fontSize: 12
-                }
+            color: "#fff",
+            fontSize: 12
+          }
         },
         series: [
           {
@@ -206,7 +214,7 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["40%", "50%"],
-           data: [
+            data: [
               { value: 335, name: "直接访问", label: { fontSize: 14 } },
               { value: 310, name: "邮件营销", label: { fontSize: 14 } },
               { value: 234, name: "联盟广告", label: { fontSize: 14 } },
@@ -220,16 +228,15 @@ export default {
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
             },
-            label:{
-              color:"#fff",
-              fontSize:12
+            label: {
+              color: "#fff",
+              fontSize: 12
             }
           }
         ]
       };
 
       myChart.setOption(option);
-     
     }
   }
 };
