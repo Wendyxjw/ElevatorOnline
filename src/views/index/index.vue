@@ -400,9 +400,9 @@ export default {
             ),
             symbolSize: function(val) {
               console.log(val);
-              return val[2] * 15;
+              return val[2] * 35;
             },
-            showEffectOn: "emphasis",
+            showEffectOn: "render",
             rippleEffect: {
               brushType: "stroke"
             },
