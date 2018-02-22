@@ -25,6 +25,8 @@
 </template>
 <script>
 var echarts = require("echarts");
+import Filter from "../../utils/filter";
+import { getWarnEventList } from "../../service/indexnet.js";
 export default {
   name: "right3",
   data() {

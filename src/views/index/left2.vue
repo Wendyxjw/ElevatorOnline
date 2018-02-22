@@ -1,47 +1,32 @@
 <template>
   <div class="index-con">
     <div class="title">{{title}}</div>
-    <Table :columns="columns1" :data="data1"></Table>
+    <Table :columns="tableTitle" :data="tableList"></Table>
   </div>
 </template>
 <script>
+import Filter from "../../utils/filter";
+import { getWarnEventList } from "../../service/indexnet.js";
 export default {
-  name:"left2",
-  data(){
-      return{
-          title:"报警事件列表",
-          columns1: [
-                    {
-                        title: '时间',
-                        key: 'time'
-                    },
-                    {
-                        title: '地点',
-                        key: 'address'
-                    },
-                    {
-                        title: '类型',
-                        key: 'type'
-                    }
-                ],
-                data1: [
-                    {
-                        time: 'John Brown',
-                        address: 18,
-                        type: 'New York No. 1 Lake Park',
-                    },
-                    {
-                        time: 'John Brown',
-                        address: 18,
-                        type: 'New York No. 1 Lake Park',
-                    },
-                    {
-                        time: 'John Brown',
-                        address: 18,
-                        type: 'New York No. 1 Lake Park',
-                    }
-                ]
-      }
+  name: "left2",
+  data() {
+    return {
+      title: "报警事件列表",
+      tableTitle: [],
+      tableList: []
+    };
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      getWarnEventList().then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.tableTitle=data.tableTitle
+        this.tableList=data.tableList
+      });
+    }
   }
-}
+};
 </script>

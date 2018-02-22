@@ -15,6 +15,8 @@
   </div>
 </template>
 <script>
+import Filter from "../../utils/filter";
+import { getWarnEventList } from "../../service/indexnet.js";
 export default {
   name:"right2",
   data(){

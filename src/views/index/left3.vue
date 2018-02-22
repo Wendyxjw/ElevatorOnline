@@ -53,18 +53,18 @@
       <Row>
       <Col span="8">
       <div>
-        <p class="text1 text-small-white"><Icon type="person" class="icon-man"/>维保人员：<span class="text-large-blue">20</span></p>
-        <p class="text1 text-small-white"><Icon type="person"  class="icon-man"/>维修人员：<span class="text-large-blue">20</span></p>  
+        <p class="text1 text-small-white"><Icon type="person" class="icon-man"/>维保人员：<span class="text-large-blue">{{number.maintenancePepole}}</span></p>
+        <p class="text1 text-small-white"><Icon type="person"  class="icon-man"/>维修人员：<span class="text-large-blue">{{number.repairPepole}}</span></p>  
       </div>
       <div>
         <p class="text-middle-white">维保完成情况</p>
-        <div class="text-center text-large-blue">5000次</div>
+        <div class="text-center text-large-blue">{{number.maintenanceSituation}}次</div>
       </div>
       <div  @click="leftmodalShow">
         <p class="text-middle-white">维保完成率</p>
         <div class="text-center ">
-          <Circle :percent="40" :size="50" :stroke-width="13" :trail-width="13">
-            <span class="demo-Circle-inner text-small-white" >80%</span>
+          <Circle :percent="number.maintenanceRate" :size="50" :stroke-width="13" :trail-width="13">
+            <span class="demo-Circle-inner text-small-white" >{{number.maintenanceRate}}%</span>
           </Circle>
         </div>
       </div>
@@ -79,16 +79,16 @@
       <div  class="flex1">
         <div  class="display-flex">
           <span class="text-small-white">计划用时：</span>
-          <div class="line"><span class="line-percent line-yellow" style="width:50%"></span></div>
+          <div class="line"><span class="line-percent line-yellow" :style="{width:number.planningTime}"></span></div>
         </div>
             <div class="display-flex">
               <span class="text-small-white">实际用时：</span>
-              <div class="line"><span class="line-percent line-blue" style="width:100%"></span></div>
+              <div class="line"><span class="line-percent line-blue" :style="{width:number.practicalTime}"></span></div>
         </div>          
       </div>
       <div style="margin-left:10px">
-        <Circle :percent="40" :size="50" :stroke-width="13" :trail-width="13">
-            <span class="demo-Circle-inner text-small-white">80%</span>
+        <Circle :percent="number.timeRate" :size="50" :stroke-width="13" :trail-width="13">
+            <span class="demo-Circle-inner text-small-white">{{number.timeRate}}%</span>
           </Circle>
           <p class="text-small-white">用时比率</p>
       </div>
@@ -115,6 +115,9 @@
   </div>
 </template>
 <script>
+var echarts = require("echarts");
+import Filter from "../../utils/filter";
+import { getMaintenanceSituation } from "../../service/indexnet.js";
 export default {
   name: "left3",
   data() {
@@ -164,13 +167,32 @@ export default {
           address: "Ottawa No. 2 Lake Park",
           date: "2016-10-04"
         }
-      ]
+      ],
+      number:{}
     };
   },
   mounted() {
+    this.getData();
     this.initMap();
   },
   methods: {
+    getData() {
+      getMaintenanceSituation().then(res =>{
+          this.number = Filter.initialTolowerCase(res);
+          this.number.timeRate=parseFloat((this.number.practicalTime/this.number.planningTime*100).toFixed(2));
+          if(this.number.timeRate>100){
+            
+            this.number.timeRate=parseFloat((this.number.planningTime/this.number.practicalTime*100).toFixed(2));
+            this.number.practicalTime="100%";
+            this.number.planningTime=this.number.timeRate+"%";
+
+          }else{
+            this.number.planningTime="100%";
+            this.number.practicalTime=this.number.timeRate+"%";
+          }
+
+      })
+    },
     leftmodalShow() {
       this.leftmodal1 = true;
       this.initchart();

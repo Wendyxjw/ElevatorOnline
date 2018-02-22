@@ -101,15 +101,15 @@ Mock.mock('/api/index/WarnEventList','get', (req, res) => {
             //列头
             TableTitle: [{
                     Title: '时间',
-                    Key: 'Time'
+                    Key: 'time'
                 },
                 {
                     Title: '地点',
-                    Key: 'Address'
+                    Key: 'address'
                 },
                 {
                     Title: '类型',
-                    Key: 'Type'
+                    Key: 'type'
                 }
             ],
             //列表内容
@@ -142,9 +142,9 @@ Mock.mock('/api/index/MaintenanceSituation','get', (req, res) => {
             MaintenancePepole:11,//维保人员
             RepairPepole:12,//维修人员
             MaintenanceSituation:123,//维保完成情况
-            MaintenanceRate:"80%",//维保完成率
+            MaintenanceRate:80,//维保完成率
             PlanningTime:12,//计划用时
-            PracticalTime:14//实际用时
+            PracticalTime:11//实际用时
         },
         ErrorMessage: "",
         ErrorCode: 0
@@ -200,29 +200,6 @@ Mock.mock('/api/index/Trend','post', (req, res) => {
         Status: true,
         Data: {
 
-        },
-        ErrorMessage: "",
-        ErrorCode: 0
-    }
-})
-//报警事件列表
-Mock.mock('/api/index/WarnEventList', (req, res) => {
-    return {
-        Status: true,
-        Data: {
-            //对应x轴名称
-            XText:"2012",
-            //该X轴上的数据
-            List:[{
-                name:"Forest",
-                number:123
-            },{
-                name:"Forest",
-                number:123
-            },{
-                name:"Forest",
-                number:123
-            }]
         },
         ErrorMessage: "",
         ErrorCode: 0
