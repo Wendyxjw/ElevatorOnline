@@ -26,7 +26,7 @@
   }
   .left-box {
     width: 30%;
-   // min-width: 800px;
+    // min-width: 800px;
     left: 0;
   }
   .right-box {
@@ -54,7 +54,7 @@
       bottom: 0;
     }
   }
-  .box-top{
+  .box-top {
     position: absolute;
     top: 0;
     left: 25%;
@@ -190,27 +190,33 @@ export default {
       var data = [
         {
           name: "月湖公园",
-          value: 0.88
+          value: 0.88,
+          num: 10
         },
         {
           name: "宁波东站",
-          value: 0.38
+          value: 0.38,
+          num: 5
         },
         {
           name: "宁波体育中心",
-          value: 0.95
+          value: 0.95,
+          num: 1
         },
         {
           name: "科技公园",
-          value: 0.6
+          value: 0.6,
+          num: 4
         },
         {
           name: "四安文化乐园",
-          value: 0.5
+          value: 0.5,
+          num: 20
         },
         {
           name: "体育馆",
-          value: 1.0
+          value: 1.0,
+          num: 30
         }
       ];
 
@@ -230,13 +236,12 @@ export default {
           if (geoCoord) {
             res.push({
               name: data[i].name,
-              value: geoCoord.concat(data[i].value)
+              value: geoCoord.concat([data[i].value, data[i].num])
             });
           }
         }
         return res;
       };
-
       var option = {
         backgroundColor: "#404a59",
         title: {
@@ -265,7 +270,7 @@ export default {
               {
                 featureType: "water",
                 elementType: "all",
-                stylers: {  
+                stylers: {
                   color: "#044161"
                 }
               },
@@ -395,16 +400,37 @@ export default {
         },
         series: [
           {
-            name: "Top 5",
+            name: "点",
+            type: "scatter",
+            coordinateSystem: "bmap",
+            symbol: "pin", //气泡
+            symbolSize: 50,
+            label: {
+              normal: {
+                show: true,
+                formatter: function(params) {
+                  console.log(params);
+                  return params.data.value[3];
+                },
+                textStyle: {
+                  color: "#fff",
+                  fontSize: 9
+                }
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: "#F62157" //标志颜色
+              }
+            },
+            zlevel: 101,
+            data: convertData(data)
+          },
+          {
+            name: "Top",
             type: "effectScatter",
             coordinateSystem: "bmap",
-            data: convertData(
-              data
-                .sort(function(a, b) {
-                  return b.value - a.value;
-                })
-                .slice(0, 6)
-            ),
+            data: convertData(data),
             symbolSize: function(val) {
               //console.log(val);
               return val[2] * 35;
