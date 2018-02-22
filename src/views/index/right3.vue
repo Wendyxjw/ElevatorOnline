@@ -5,17 +5,11 @@
   <div class="index-con">
     <div class="title">{{title}}</div>
     <div class="text-center">
-      <ButtonGroup >
-        <Button type="primary">
-            电梯里
-        </Button>
-        <Button >
-            故障数
-        </Button>
-        <Button >
-            困人数
-        </Button>
-    </ButtonGroup>
+     <RadioGroup v-model="radioval" type="button">
+        <Radio label="电梯里"></Radio>
+        <Radio label="故障数"></Radio>
+        <Radio label="困人数"></Radio>
+    </RadioGroup>
     <div id="right3chart1"  style="width: 100%;height:100%;min-height:300px;">
 
       </div>
@@ -26,18 +20,47 @@
 <script>
 var echarts = require("echarts");
 import Filter from "../../utils/filter";
-import { getWarnEventList } from "../../service/indexnet.js";
+import { getTrend } from "../../service/indexnet.js";
 export default {
   name: "right3",
   data() {
     return {
-      title: "趋势"
+      title: "趋势",
+      radioval: "电梯里",
+      legend: [],
+      series: []
     };
   },
   mounted() {
-    this.initChart1();
+    this.getData();
   },
   methods: {
+    getData() {
+      getTrend().then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.legend = this.getLegend(data);
+        this.series = this.getSeries(data);
+        this.initChart1();
+      });
+    },
+    getLegend(data) {
+      var arr = [];
+      for (let i in data) {
+        arr[i] = data[i].name;
+        //console.log(data[i].name)
+      }
+      return arr;
+    },
+    getSeries(data) {
+      var arr = [];
+      for (let i in data) {
+        arr[i] = data[i];
+        arr[i].type = "bar";
+        arr[i].barGap = 0;
+        //console.log(data[i].name)
+      }
+      return arr;
+    },
     initChart1() {
       var myChart = echarts.init(document.getElementById("right3chart1"));
       var option = {
@@ -49,10 +72,10 @@ export default {
           }
         },
         legend: {
-          data: ["Forest", "Steppe", "Desert", "Wetland"],
+          data: this.legend,
           type: "scroll",
           orient: "vertical",
-          right:0,
+          right: 0,
           top: 20,
           bottom: 20,
           textStyle: {
@@ -64,7 +87,7 @@ export default {
           show: true,
           orient: "vertical",
           left: "right",
-          top: "center",
+          top: "center"
           // feature: {
           //   mark: { show: true },
           //   dataView: { show: true, readOnly: false },
@@ -79,13 +102,13 @@ export default {
             type: "category",
             axisTick: { show: false },
             data: ["2012", "2013", "2014", "2015", "2016"],
-            axisLabel:{
-              color:"#fff",
-              fontSize:12,
+            axisLabel: {
+              color: "#fff",
+              fontSize: 12
             },
-            axisLine:{
-              lineStyle:{
-                color:"#fff"
+            axisLine: {
+              lineStyle: {
+                color: "#fff"
               }
             }
           }
@@ -93,44 +116,18 @@ export default {
         yAxis: [
           {
             type: "value",
-            axisLabel:{
-              color:"#fff",
-              fontSize:12,
+            axisLabel: {
+              color: "#fff",
+              fontSize: 12
             },
-            axisLine:{
-              lineStyle:{
-                color:"#fff"
+            axisLine: {
+              lineStyle: {
+                color: "#fff"
               }
             }
           }
         ],
-        series: [
-          {
-            name: "Forest",
-            type: "bar",
-            barGap: 0,
-            //label: labelOption,
-            data: [320, 332, 301, 334, 390]
-          },
-          {
-            name: "Steppe",
-            type: "bar",
-            //label: labelOption,
-            data: [220, 182, 191, 234, 290]
-          },
-          {
-            name: "Desert",
-            type: "bar",
-           // label: labelOption,
-            data: [150, 232, 201, 154, 190]
-          },
-          {
-            name: "Wetland",
-            type: "bar",
-          //  label: labelOption,
-            data: [98, 77, 101, 99, 40]
-          }
-        ]
+        series: this.series
       };
       myChart.setOption(option);
     }

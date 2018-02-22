@@ -89,7 +89,7 @@ export default {
       var arr = [];
       for (let i in data) {
         arr[i] = data[i].name;
-        console.log(data[i].name)
+        //console.log(data[i].name)
       }
       return arr;
     },

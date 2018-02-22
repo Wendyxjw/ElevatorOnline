@@ -26,7 +26,7 @@
   }
   .left-box {
     width: 30%;
-    min-width: 800px;
+   // min-width: 800px;
     left: 0;
   }
   .right-box {
@@ -54,10 +54,17 @@
       bottom: 0;
     }
   }
+  .box-top{
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+  }
   .box-bottom {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 25%;
+    width: 50%;
   }
   .check {
     line-height: 50px;
@@ -70,8 +77,7 @@
     <div class="chart-box">
       <!-- 底部地图 -->
       <div id="indexMap" class="charts"></div>
-      <div class="box text-center point">
-        <div class="index-con " style="width:50%;display: inline-block;">
+      <div class="index-con box-top">
             <Row>
               <Col span="4">
               <p class="text-center">
@@ -117,22 +123,23 @@
               </Col>
             </Row>
         </div>
-        <div class="text-center box-bottom"> 
-          <div class="index-con text-middle-white "  style="width:50%;display: inline-block;">
-            1.维保率在85%以上绿色,60%-85%黄绿,60%以下黄色<br>
-            2.故障点显示红色。<br>
-            3.故障处理完后2小时内蓝色显示
-            <div class="check text-center text-large-white">
-              <RadioGroup v-model="disabledGroup" size="large">
-                  <Radio label="电梯分布"></Radio>
-                  <Radio label="维保单位"></Radio>
-                  <Radio label="故障分布"></Radio>
-              </RadioGroup>
+      <div class="index-con  text-center box-bottom"> 
+        <div class="check text-center text-large-white">
+
+              <CheckboxGroup v-model="checkval" size="large" class="text-center">
+                  <Checkbox label="电梯分布"></Checkbox>
+                  <Checkbox label="维保单位"></Checkbox>
+                  <Checkbox label="故障分布"></Checkbox>
+              </CheckboxGroup>
             </div>
             <p class="text-middle-white text-center">公司logo图标</p>
+          <div class="text-middle-white " >
+            <!-- 1.维保率在85%以上绿色,60%-85%黄绿,60%以下黄色<br>
+            2.故障点显示红色。<br>
+            3.故障处理完后2小时内蓝色显示 -->
+            
           </div>
         </div>
-      </div>
       <!-- 插件 -->
        <div class="box left-box scroll">
           <left1></left1>
@@ -163,7 +170,7 @@ export default {
   data() {
     return {
       name: "电梯物联网标题",
-      disabledGroup: "维保单位"
+      checkval: ["维保单位"]
     };
   },
   components: {
@@ -399,7 +406,7 @@ export default {
                 .slice(0, 6)
             ),
             symbolSize: function(val) {
-              console.log(val);
+              //console.log(val);
               return val[2] * 35;
             },
             showEffectOn: "render",
