@@ -242,7 +242,7 @@ export default {
         tooltip: {
           trigger: "item",
           formatter: function(params) {
-            console.log(params);
+            //console.log(params);
             let num = (params.data.value[2] * 100).toFixed(2);
             let temp = `${params.data.name} <br/>
             维保率：${num}%`;
@@ -258,7 +258,7 @@ export default {
               {
                 featureType: "water",
                 elementType: "all",
-                stylers: {
+                stylers: {  
                   color: "#044161"
                 }
               },
