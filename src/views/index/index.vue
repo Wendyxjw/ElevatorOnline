@@ -152,7 +152,6 @@
 
 </template>
 <script>
-var echarts = require("echarts");
 import left1 from "./left1.vue";
 import left2 from "./left2.vue";
 import left3 from "./left3.vue";
