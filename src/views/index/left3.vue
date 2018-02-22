@@ -39,7 +39,7 @@
     border-bottom: 1px solid #dddddd;
     margin-bottom: 10px;
   }
-  .chart{
+  .chart {
     width: 580px;
     height: 400px;
     padding: 10px;
@@ -69,7 +69,8 @@
         </div>
       </div>
       </Col>
-      <Col span="16">小地图
+      <Col span="16" >
+        <div id="map" style="width:300px;height:300px;border:1px solid yellow"></div>
       </Col>
     </Row>
 
@@ -114,8 +115,6 @@
   </div>
 </template>
 <script>
-var echarts = require("echarts");
-
 export default {
   name: "left3",
   data() {
@@ -168,6 +167,9 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.initMap();
+  },
   methods: {
     leftmodalShow() {
       this.leftmodal1 = true;
@@ -176,9 +178,9 @@ export default {
     initchart() {
       var myChart = echarts.init(document.getElementById("left3chart1"));
       var option = {
-        title:{
-          text:"图表标题",
-           x: "center",
+        title: {
+          text: "图表标题",
+          x: "center"
         },
         tooltip: {
           trigger: "axis",
@@ -199,18 +201,12 @@ export default {
         },
         legend: {
           data: ["蒸发量", "降水量", "平均温度"],
-          bottom:0
+          bottom: 0
         },
         xAxis: [
           {
             type: "category",
-            data: [
-              "华北",
-              "华东",
-              "华南",
-              "东北",
-              "西南西北"
-            ],
+            data: ["华北", "华东", "华南", "东北", "西南西北"],
             axisPointer: {
               type: "shadow"
             }
@@ -242,41 +238,36 @@ export default {
           {
             name: "计划",
             type: "bar",
-            data: [
-              2.0,
-              4.9,
-              7.0,
-              23.2,
-              25.6,
-            ]
+            data: [2.0, 4.9, 7.0, 23.2, 25.6]
           },
           {
             name: "实际",
             type: "bar",
-            data: [
-              2.6,
-              5.9,
-              9.0,
-              26.4,
-              28.7
-            ]
+            data: [2.6, 5.9, 9.0, 26.4, 28.7]
           },
           {
-             name: "完成率",
+            name: "完成率",
             type: "line",
             yAxisIndex: 1,
-            data: [
-              2.0,
-              2.2,
-              3.3,
-              4.5,
-              6.3
-            ]
+            data: [2.0, 2.2, 3.3, 4.5, 6.3]
           }
         ]
       };
       // 绘制图表
       myChart.setOption(option);
+    },
+    initMap() {
+      // 百度地图API功能
+      var map = new BMap.Map("map"); // 创建Map实例
+      map.centerAndZoom(new BMap.Point(121.628572, 29.866033), 13); // 初始化地图,设置中心点坐标和地图级别
+      //添加地图类型控件
+      map.addControl(
+        new BMap.MapTypeControl({
+          mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+        })
+      );
+      map.setCurrentCity("宁波"); // 设置地图显示的城市 此项是必须设置的
+      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     }
   }
 };
