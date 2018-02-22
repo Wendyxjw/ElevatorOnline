@@ -16,8 +16,10 @@
   "author": "Aresn",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "echarts": "^4.0.2",
     "iview": "^2.0.0-rc.8",
+    "jquery": "^3.3.1",
     "vue": "^2.2.6",
     "vue-router": "^2.2.1"
   },

@@ -6,16 +6,16 @@
   <div class="index-con left1">
     <div class="title">{{title}}</div>
 
-  <Row>
+      <Row>
         <Col span="12">
         <div>
            <Row>
-              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue"><router-link :to="{ path: 'dayevent'}" target="_blank">25600起</router-link></span></Col>
-              <Col span="12"><span class="text-middle-white">日事件已处理数：</span><br><span class="text-large-blue">25595起</span></Col>
+              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue"><router-link :to="{ path: 'dayevent'}" target="_blank">{{list.dayEventWarn}}起</router-link></span></Col>
+              <Col span="12"><span class="text-middle-white">日事件已处理数：</span><br><span class="text-large-blue">{{list.dayEventHandle}}起</span></Col>
           </Row>
           <Row>
-              <Col span="12"><span class="text-middle-white">日事件困人数：</span><br><span class="text-large-blue">30起</span></Col>
-              <Col span="12"><span class="text-middle-white">困人故障平均处理时长：</span><br><span class="text-large-blue">10分钟</span></Col>
+              <Col span="12"><span class="text-middle-white">日事件困人数：</span><br><span class="text-large-blue">{{list.dayEventTrapped}}起</span></Col>
+              <Col span="12"><span class="text-middle-white">困人故障平均处理时长：</span><br><span class="text-large-blue">{{list.dayEventAverageTime}}分钟</span></Col>
           </Row>
 
       </div>
@@ -37,33 +37,61 @@
         </Col>
     </Row>
       
-    </div>
-    </div>
+
   </div>
 </template>
 <script>
 var echarts = require("echarts");
+import Filter from "../../utils/filter";
+import { getDayHandleData } from "../../service/indexnet.js";
 export default {
   name: "left1",
   data() {
     return {
-      title: "日事件感知与智能处理"
+      title: "日事件感知与智能处理",
+      list: {},
+      chart1: {},
+      chart2: {},
+      chart3: {}
     };
   },
   mounted() {
-    this.getData()
-    this.initChart1();
-    this.initChart2();
-    this.initChart3();
+    this.getData();
   },
   methods: {
     getData() {
-      this.$axios.get("/api/index/DayHandleData").then(res => {
-        if(res.data.Status){
-          var data=res.data.Data;
+      getDayHandleData().then(res => {
+        var data = Filter.initialTolowerCase(res);
+        var listData = {};
+        for (let i in data.list) {
+          var item = data.list[i];
+          listData[item.name] = item.num;
         }
-        
+        this.list = Filter.initialTolowerCase(listData);
+        this.chart1 = {
+          legend:this.getLegend(data.chart1),
+          list:data.chart1
+        };
+        this.chart2 = {
+          legend:this.getLegend(data.chart2),
+          list:data.chart2
+        };
+        this.chart3 = {
+          legend:this.getLegend(data.chart3),
+          list:data.chart3
+        };
+        this.initChart1();
+        this.initChart2();
+        this.initChart3();
       });
+    },
+    getLegend(data) {
+      var arr = [];
+      for (let i in data) {
+        arr[i] = data[i].name;
+        console.log(data[i].name)
+      }
+      return arr;
     },
     initChart1() {
       // 基于准备好的dom，初始化echarts实例
@@ -76,7 +104,7 @@ export default {
         legend: {
           type: "scroll",
           top: 0,
-          data: ["直接访问", "邮件营销", "联盟广告"],
+          data: this.chart1.legend,
           textStyle: {
             color: "#fff",
             fontSize: 12
@@ -112,11 +140,7 @@ export default {
                 show: false
               }
             },
-            data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" }
-            ]
+            data: this.chart1.list
           }
         ]
       };
@@ -145,7 +169,7 @@ export default {
           left: 0,
           top: 20,
           bottom: 20,
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "sssss"],
+          data: this.chart2.legend,
           textStyle: {
             color: "#fff",
             fontSize: 14
@@ -157,13 +181,7 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["60%", "50%"],
-            data: [
-              { value: 335, name: "直接访问", label: { fontSize: 14 } },
-              { value: 310, name: "邮件营销", label: { fontSize: 14 } },
-              { value: 234, name: "联盟广告", label: { fontSize: 14 } },
-              { value: 135, name: "视频广告", label: { fontSize: 14 } },
-              { value: 1548, name: "视频广告", label: { fontSize: 14 } }
-            ],
+            data: this.chart2.list,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -202,7 +220,7 @@ export default {
           right: 0,
           top: 20,
           bottom: 20,
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "sssss"],
+          data: this.chart3.legend,
           textStyle: {
             color: "#fff",
             fontSize: 12
@@ -214,13 +232,7 @@ export default {
             type: "pie",
             radius: "55%",
             center: ["40%", "50%"],
-            data: [
-              { value: 335, name: "直接访问", label: { fontSize: 14 } },
-              { value: 310, name: "邮件营销", label: { fontSize: 14 } },
-              { value: 234, name: "联盟广告", label: { fontSize: 14 } },
-              { value: 135, name: "视频广告", label: { fontSize: 14 } },
-              { value: 1548, name: "sssss", label: { fontSize: 14 } }
-            ],
+            data: this.chart3.list,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,

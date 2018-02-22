@@ -39,11 +39,11 @@ Mock.mock('/api/index/DayHandleData','get', (req, res) => {
                 },
                 {
                     Value: 234,
-                    Value: "联盟广告"
+                    Name: "联盟广告"
                 }
             ],
             //第二个饼图数据
-            Chart1: [{
+            Chart2: [{
                     Value: 335,
                     Name: "直接访问"
                 },
@@ -65,7 +65,7 @@ Mock.mock('/api/index/DayHandleData','get', (req, res) => {
                 }
             ],
             //第三个饼图数据
-            Chart1: [{
+            Chart3: [{
                     Value: 335,
                     Name: "直接访问"
                 },
