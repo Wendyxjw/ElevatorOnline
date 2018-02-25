@@ -17,8 +17,9 @@
     .tTitle {
       font-weight: bold;
       background-color: #f8f8f9;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid #e9eaec;
       width: 33.3%;
+      line-height: 40px
     }
   }
   #box {
@@ -35,6 +36,7 @@
     width: 100%;
     line-height: 40px;
     height: 40px;
+    border-bottom: 1px solid #e9eaec;
   }
 }
 </style>
@@ -57,7 +59,6 @@
         </ul>
       </div>
 
-      <hr>
     </div>
   </div>
 </template>
