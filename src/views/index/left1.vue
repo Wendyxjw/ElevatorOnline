@@ -131,7 +131,7 @@ export default {
           {
             name: "访问来源",
             type: "pie",
-            radius: ["40%", "70%"],
+            radius: ["30%", "60%"],
             avoidLabelOverlap: false,
             label: {
               normal: {
@@ -189,14 +189,14 @@ export default {
           data: this.chart2.legend,
           textStyle: {
             color: "#fff",
-            fontSize: 14
+            fontSize: 12
           }
         },
         series: [
           {
             name: "故障分类",
             type: "pie",
-            radius: "55%",
+            radius: "40%",
             center: ["60%", "50%"],
             data: this.chart2.list,
             itemStyle: {
@@ -247,7 +247,7 @@ export default {
           {
             name: "故障部件",
             type: "pie",
-            radius: "55%",
+            radius: "40%",
             center: ["40%", "50%"],
             data: this.chart3.list,
             itemStyle: {

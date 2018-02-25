@@ -70,12 +70,12 @@
       </div>
       </Col>
       <Col span="16" >
-        <div id="map" style="width:300px;height:300px;border:1px solid yellow"></div>
+        <div id="map" style="width:100%;height:200px;border:1px solid yellow"></div>
       </Col>
     </Row>
 
     </div>
-    <div class="display-flex">
+    <div class="display-flex" style="margin-top:10px">
       <div  class="flex1">
         <div  class="display-flex">
           <span class="text-small-white">计划用时：</span>
@@ -136,12 +136,11 @@ export default {
         palnData: [],
         actualData: [],
         rateData: []
-      }
+      },
     };
   },
   mounted() {
     this.getData();
-    this.initMap();
   },
   methods: {
     getData() {
@@ -166,6 +165,8 @@ export default {
           this.number.planningTime = "100%";
           this.number.practicalTime = this.number.timeRate + "%";
         }
+       this.initMap();
+
       });
     },
     leftmodalShow() {
@@ -249,13 +250,102 @@ export default {
       // 百度地图API功能
       var map = new BMap.Map("map"); // 创建Map实例
       map.centerAndZoom(new BMap.Point(121.628572, 29.866033), 13); // 初始化地图,设置中心点坐标和地图级别
+      var styleData = [
+        {
+          featureType: "land",
+          elementType: "geometry",
+          stylers: {
+            color: "#e7f7fc"
+          }
+        },
+        {
+          featureType: "water",
+          elementType: "all",
+          stylers: {
+            color: "#96b5d6"
+          }
+        },
+        {
+          featureType: "green",
+          elementType: "all",
+          stylers: {
+            color: "#b0d3dd"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "geometry.fill",
+          stylers: {
+            color: "#a6cfcf"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "geometry.stroke",
+          stylers: {
+            color: "#7dabb3"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "geometry.fill",
+          stylers: {
+            color: "#e7f7fc"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "geometry.stroke",
+          stylers: {
+            color: "#b0d5d4"
+          }
+        },
+        {
+          featureType: "local",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#7a959a"
+          }
+        },
+        {
+          featureType: "local",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#d6e4e5"
+          }
+        },
+        {
+          featureType: "arterial",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#374a46"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "labels.text.fill",
+          stylers: {
+            color: "#374a46"
+          }
+        },
+        {
+          featureType: "highway",
+          elementType: "labels.text.stroke",
+          stylers: {
+            color: "#e9eeed"
+          }
+        }
+      ];
+      map.setMapStyle({
+        styleJson: styleData
+      });
       //添加地图类型控件
       map.addControl(
         new BMap.MapTypeControl({
           mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
         })
       );
-      map.setCurrentCity("宁波"); // 设置地图显示的城市 此项是必须设置的
+      map.setCurrentCity(this.number.mapCenter); // 设置地图显示的城市 此项是必须设置的
       map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     },
     getMaintenance() {

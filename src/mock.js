@@ -145,7 +145,8 @@ Mock.mock('/api/index/MaintenanceSituation', 'get', (req, res) => {
             MaintenanceSituation: 123, //维保完成情况
             MaintenanceRate: 80, //维保完成率
             PlanningTime: 12, //计划用时
-            PracticalTime: 11 //实际用时
+            PracticalTime: 11, //实际用时
+            mapCenter:"宁波"//地图中心
         },
         ErrorMessage: "",
         ErrorCode: 0
