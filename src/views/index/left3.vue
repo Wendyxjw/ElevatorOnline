@@ -115,7 +115,6 @@
   </div>
 </template>
 <script>
-var echarts = require("echarts");
 import Filter from "../../utils/filter";
 import {
   getMaintenanceSituation,

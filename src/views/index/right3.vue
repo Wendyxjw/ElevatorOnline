@@ -18,7 +18,6 @@
   
 </template>
 <script>
-var echarts = require("echarts");
 import Filter from "../../utils/filter";
 import { getTrend } from "../../service/indexnet.js";
 export default {

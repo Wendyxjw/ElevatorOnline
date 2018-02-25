@@ -44,7 +44,6 @@
   </div>
 </template>
 <script>
-var echarts = require("echarts");
 import Filter from "../../utils/filter";
 import { getDayHandleData } from "../../service/indexnet.js";
 var $=require("jquery")
