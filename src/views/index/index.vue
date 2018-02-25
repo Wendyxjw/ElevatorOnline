@@ -77,7 +77,7 @@
     <div class="chart-box">
       <!-- 底部地图 -->
       <div id="indexMap" class="charts"></div>
-      <div class="index-con box-top">
+      <div class="point index-con box-top">
             <Row>
               <Col span="4">
               <p class="text-center">
