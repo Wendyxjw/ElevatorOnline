@@ -31,7 +31,7 @@
   }
   .right-box {
     width: 20%;
-   // min-width: 500px;
+    // min-width: 500px;
     right: 0;
   }
   .point {
@@ -159,6 +159,7 @@
 
 </template>
 <script>
+const moment = require("moment");
 import left1 from "./left1.vue";
 import left2 from "./left2.vue";
 import left3 from "./left3.vue";
@@ -170,7 +171,14 @@ export default {
   data() {
     return {
       name: "电梯物联网标题",
-      checkval: ["维保单位"]
+      checkval: ["维保单位"],
+      ws: null,
+      myChart: null,
+      mapConfig: {
+        zoom: 12,
+        data: [],
+        geoCoordMap: []
+      }
     };
   },
   components: {
@@ -182,57 +190,17 @@ export default {
     right3
   },
   mounted() {
-    this.initmap();
+    this.websocketEvent();
+    // this.initmap();
   },
   methods: {
     initmap() {
-      var myChart = echarts.init(document.getElementById("indexMap"));
-      var data = [
-        {
-          name: "月湖公园",
-          value: 0.88,
-          num: 10
-        },
-        {
-          name: "宁波东站",
-          value: 0.38,
-          num: 5
-        },
-        {
-          name: "宁波体育中心",
-          value: 0.95,
-          num: 1
-        },
-        {
-          name: "科技公园",
-          value: 0.6,
-          num: 4
-        },
-        {
-          name: "四安文化乐园",
-          value: 0.5,
-          num: 20
-        },
-        {
-          name: "体育馆",
-          value: 1.0,
-          num: 30
-        }
-      ];
+      this.myChart = echarts.init(document.getElementById("indexMap"));
 
-      var geoCoordMap = {
-        月湖公园: [121.549234, 29.874051],
-        宁波东站: [121.591921, 29.854131],
-        宁波体育中心: [121.588328, 29.877307],
-        科技公园: [121.637771, 29.880564],
-        四安文化乐园: [121.681177, 29.848743],
-        体育馆: [121.612762, 29.918887]
-      };
-
-      var convertData = function(data) {
+      const convertData = data => {
         var res = [];
-        for (var i = 0; i < data.length; i++) {
-          var geoCoord = geoCoordMap[data[i].name];
+        for (let i = 0; i < data.length; i++) {
+          let geoCoord = this.mapConfig.geoCoordMap[data[i].name];
           if (geoCoord) {
             res.push({
               name: data[i].name,
@@ -242,7 +210,8 @@ export default {
         }
         return res;
       };
-      var option = {
+      let _this = this;
+      let option = {
         backgroundColor: "#404a59",
         title: {
           text: "",
@@ -263,8 +232,9 @@ export default {
         },
         bmap: {
           center: [121.628572, 29.866033],
-          zoom: 13, //地图放大级别
+          zoom: this.mapConfig.zoom, //地图放大级别
           roam: true,
+          silent: true,
           mapStyle: {
             styleJson: [
               {
@@ -409,7 +379,7 @@ export default {
               normal: {
                 show: true,
                 formatter: function(params) {
-                  console.log(params);
+                  // console.log(params);
                   return params.data.value[3];
                 },
                 textStyle: {
@@ -424,13 +394,13 @@ export default {
               }
             },
             zlevel: 101,
-            data: convertData(data)
+            data: convertData(_this.mapConfig.data)
           },
           {
             name: "Top",
             type: "effectScatter",
             coordinateSystem: "bmap",
-            data: convertData(data),
+            data: convertData(_this.mapConfig.data),
             symbolSize: function(val) {
               //console.log(val);
               return val[2] * 35;
@@ -463,7 +433,97 @@ export default {
           }
         ]
       };
-      myChart.setOption(option);
+      this.myChart.setOption(option, true);
+      setTimeout(() => {
+        this.bindMapListen();
+      }, 500);
+    },
+    bindMapListen() {
+      var bmap = this.myChart
+        .getModel()
+        .getComponent("bmap")
+        .getBMap();
+      bmap.addControl(new BMap.MapTypeControl());
+      bmap.addControl(new BMap.ScaleControl());
+      bmap.addControl(
+        new BMap.NavigationControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT })
+      );
+
+      bmap.enableAutoResize();
+      bmap.addEventListener("zoomend", (type, target) => {
+        this.mapConfig.zoom = bmap.getZoom();
+        this.ws.send(
+          JSON.stringify({ user: "lh123", zoom: this.mapConfig.zoom })
+        );
+      });
+      bmap.addEventListener("click", function(type) {
+        // console.log(type);
+        return false;
+      });
+    },
+    websocketEvent() {
+      this.ws = new WebSocket("wss://echo.websocket.org");
+      this.ws.onopen = evt => {
+        console.log("Connection open ...");
+        this.ws.send("first");
+        // setInterval(() => {
+        //   this.ws.send("北京时间：" + moment().format("YY-HH-dd hh:mm:ss"));
+        // }, 1000);
+      };
+
+      this.ws.onmessage = evt => {
+        console.log(evt);
+        console.log("Received Message: " + evt.data);
+        if (evt.data === "first") {
+          this.mapConfig.data = [
+            {
+              name: "月湖公园",
+              value: 0.88,
+              num: 10
+            },
+            {
+              name: "宁波东站",
+              value: 0.38,
+              num: 5
+            },
+            {
+              name: "宁波体育中心",
+              value: 0.95,
+              num: 1
+            },
+            {
+              name: "科技公园",
+              value: 0.6,
+              num: 4
+            },
+            {
+              name: "四安文化乐园",
+              value: 0.5,
+              num: 20
+            },
+            {
+              name: "体育馆",
+              value: 1.0,
+              num: 30
+            }
+          ];
+
+          this.mapConfig.geoCoordMap = {
+            月湖公园: [121.549234, 29.874051],
+            宁波东站: [121.591921, 29.854131],
+            宁波体育中心: [121.588328, 29.877307],
+            科技公园: [121.637771, 29.880564],
+            四安文化乐园: [121.681177, 29.848743],
+            体育馆: [121.612762, 29.918887]
+          };
+        }
+        this.initmap();
+        // this.ws.close();
+      };
+
+      this.ws.onclose = evt => {
+        console.log("连接关闭。Connection closed.");
+      };
     }
   }
 };
