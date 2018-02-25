@@ -46,16 +46,23 @@ export default {
       selectVal: "全市"
     };
   },
+  computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.cityElevator;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.dataList = val;
+    }
+  },
   mounted() {
-    this.getData();
+    //this.getData();
   },
   methods: {
-    getData() {
-      getCityElevator().then(res => {
-         this.dataList  = Filter.initialTolowerCase(res);
-        //this.dataList = data.cityList;
-      });
-    },
+    // getData() {
+    //   this.dataList  = Filter.initialTolowerCase(res);
+    // },
     setSelect() {
       console.log(this.selectVal);
     }

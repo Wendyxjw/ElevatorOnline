@@ -25,7 +25,6 @@
         </Col>
         <Col span="12">
         <div id="myvideo">
-          
   
         </div>
 
@@ -39,14 +38,12 @@
          <div  id="chart3"  style="width: 100%;height:100%;min-height:200px;"></div>
         </Col>
     </Row>
-      
-
   </div>
 </template>
 <script>
 import Filter from "../../utils/filter";
 import { getDayHandleData } from "../../service/indexnet.js";
-var $=require("jquery")
+var $ = require("jquery");
 export default {
   name: "left1",
   data() {
@@ -56,50 +53,64 @@ export default {
       chart1: {},
       chart2: {},
       chart3: {},
-      videoSrc:""
+      videoSrc: "",
+      leftdata: ""
     };
   },
+  props: ["myMessage"],
+  computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.dayHandleData;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.leftdata = val;
+      this.getData();
+    }
+  },
   mounted() {
-    this.getData();
+    //this.getData();
   },
   methods: {
     getData() {
-      getDayHandleData().then(res => {
-        var data = Filter.initialTolowerCase(res);
-        //动态插入video 直接插入渲染有问题
-        this.videoSrc=data.videoSrc;
-        // autoplay="autoplay"  loop="loop" 
-        var _dom = `
+      var data = this.leftdata;
+      //动态插入video 直接插入渲染有问题
+      this.videoSrc = data.videoSrc;
+      // autoplay="autoplay"  loop="loop"
+      var _dom =
+        `
                 <video  width="100%" height="100%" autoplay="autoplay" controls="controls">
             
-            <source src="`+this.videoSrc+`" type="video/mp4">
+            <source src="` +
+        this.videoSrc +
+        `" type="video/mp4">
            你的浏览器暂不支持视频播放！
           </video>`;
-        var element=$("#myvideo");
-        element.html(_dom)
+      var element = $("#myvideo");
+      element.html(_dom);
 
-        var listData = {};
-        for (let i in data.list) {
-          var item = data.list[i];
-          listData[item.name] = item.num;
-        }
-        this.list = Filter.initialTolowerCase(listData);
-        this.chart1 = {
-          legend:this.getLegend(data.chart1),
-          list:data.chart1
-        };
-        this.chart2 = {
-          legend:this.getLegend(data.chart2),
-          list:data.chart2
-        };
-        this.chart3 = {
-          legend:this.getLegend(data.chart3),
-          list:data.chart3
-        };
-        this.initChart1();
-        this.initChart2();
-        this.initChart3();
-      });
+      var listData = {};
+      for (let i in data.list) {
+        var item = data.list[i];
+        listData[item.name] = item.num;
+      }
+      this.list = Filter.initialTolowerCase(listData);
+      this.chart1 = {
+        legend: this.getLegend(data.chart1),
+        list: data.chart1
+      };
+      this.chart2 = {
+        legend: this.getLegend(data.chart2),
+        list: data.chart2
+      };
+      this.chart3 = {
+        legend: this.getLegend(data.chart3),
+        list: data.chart3
+      };
+      this.initChart1();
+      this.initChart2();
+      this.initChart3();
     },
     getLegend(data) {
       var arr = [];

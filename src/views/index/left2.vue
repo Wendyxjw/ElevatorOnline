@@ -73,24 +73,34 @@ export default {
       animate: false,
       title: "报警事件列表",
       tableTitle: [],
-      tableList: []
+      tableList: [],
+      leftdata:{}
     };
+  },
+    computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.warnEventList;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.leftdata = val;
+      this.getData();
+    }
   },
   created() {},
   mounted() {
-    this.getData();
+    //this.getData();
   },
   methods: {
     getData() {
-      getWarnEventList().then(res => {
-        var data = Filter.initialTolowerCase(res);
+      var data = Filter.initialTolowerCase(this.leftdata);
         this.tableTitle = data.tableTitle;
         this.tableList = data.tableList;
         this.$nextTick(() => {
           // 在这里面去获取DOM
           this.doIt = setInterval(this.scroll, 2000);
         });
-      });
     },
     scroll() {
       this.animate = true; // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true

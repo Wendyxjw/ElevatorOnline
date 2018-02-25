@@ -27,22 +27,32 @@ export default {
       title: "趋势",
       radioval: "电梯里",
       legend: [],
-      series: []
+      series: [],
+      pluginData:{}
     };
   },
   mounted() {
-    this.getData();
+    //this.getData();
+  },
+  computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.trend;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.pluginData = val;
+      this.getData();
+    }
   },
   methods: {
     getData() {
-      getTrend().then(res => {
-        var data = Filter.initialTolowerCase(res);
-        this.legend = this.getLegend(data);
-        this.series = this.getSeries(data);
+      var data = Filter.initialTolowerCase(this.pluginData);
+        this.legend = this.getLegend(data.chart1);
+        this.series = this.getSeries(data.chart1);
         this.initChart1();
         this.initChart2();
         this.initChart3();
-      });
     },
     getLegend(data) {
       var arr = [];

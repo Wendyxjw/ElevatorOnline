@@ -25,16 +25,21 @@ export default {
       dataList:{}
     };
   },
+  computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.elevatorIOTPerception;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.dataList = Filter.initialTolowerCase(val);;
+    }
+  },
   mounted() {
-    this.getData();
+    
   },
   methods: {
-    getData() {
-      getElevatorIOTPerception().then(res => {
-        this.dataList = Filter.initialTolowerCase(res);
-        //this.dataList = data.cityList;
-      });
-    }
+
   }
 };
 </script>

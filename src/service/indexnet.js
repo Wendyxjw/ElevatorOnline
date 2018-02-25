@@ -62,8 +62,14 @@ module.exports = {
     getMaintenanceRate() {
         return axios.get("/api/index/MaintenanceRate")
     },
+
     //首页地图数据
     getMapData(obj) {
         return axios.post("/api/index/MapData", obj)
+    },
+    ///api/index/Getindex
+    getindex(){
+        return axios.get("/api/index/Getindex")
+
     }
 }

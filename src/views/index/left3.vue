@@ -136,15 +136,26 @@ export default {
         actualData: [],
         rateData: []
       },
+      leftdata:{}
     };
   },
+  computed: {
+    left1data() {
+      return this.$store.default.state.pluginsData.maintenanceSituation;
+    }
+  },
+  watch: {
+    left1data(val) {
+      this.leftdata = val;
+      this.getData();
+    }
+  },
   mounted() {
-    this.getData();
+    //this.getData();
   },
   methods: {
     getData() {
-      getMaintenanceSituation().then(res => {
-        this.number = Filter.initialTolowerCase(res);
+      this.number = Filter.initialTolowerCase(this.leftdata);
         this.number.timeRate = parseFloat(
           (this.number.practicalTime / this.number.planningTime * 100).toFixed(
             2
@@ -164,9 +175,7 @@ export default {
           this.number.planningTime = "100%";
           this.number.practicalTime = this.number.timeRate + "%";
         }
-       this.initMap();
-
-      });
+        this.initMap();
     },
     leftmodalShow() {
       this.leftmodal1 = true;

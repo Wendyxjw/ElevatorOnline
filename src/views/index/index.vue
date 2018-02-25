@@ -167,12 +167,14 @@ import left3 from "./left3.vue";
 import right1 from "./right1.vue";
 import right2 from "./right2.vue";
 import right3 from "./right3.vue";
-
+import Filter from "../../utils/filter";
+import { getindex } from "../../service/indexnet.js";
 export default {
   data() {
     return {
       name: "电梯物联网标题",
       checkval: ["维保单位"],
+
       ws: null,
       myChart: null,
       mapConfig: {
@@ -181,6 +183,7 @@ export default {
         data: [],
         geoCoordMap: []
       }
+
     };
   },
   components: {
@@ -192,10 +195,19 @@ export default {
     right3
   },
   mounted() {
+
     this.websocketEvent();
-    // this.initmap();
+    this.getData();
+    this.initmap();
+
   },
   methods: {
+    getData() {
+      getindex().then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.$store.default.dispatch("getPluginsData", data);  
+      });
+    },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
 
@@ -225,7 +237,6 @@ export default {
         tooltip: {
           trigger: "item",
           formatter: function(params) {
-            //console.log(params);
             let num = (params.data.value[2] * 100).toFixed(2);
             let temp = `${params.data.name} <br/>
             维保率：${num}%`;
@@ -381,7 +392,7 @@ export default {
               normal: {
                 show: true,
                 formatter: function(params) {
-                  // console.log(params);
+
                   return params.data.value[3];
                 },
                 textStyle: {
@@ -404,7 +415,6 @@ export default {
             coordinateSystem: "bmap",
             data: convertData(_this.mapConfig.data),
             symbolSize: function(val) {
-              //console.log(val);
               return val[2] * 35;
             },
             showEffectOn: "render",
@@ -464,14 +474,12 @@ export default {
         );
       });
       bmap.addEventListener("click", function(type) {
-        // console.log(type);
         return false;
       });
     },
     websocketEvent() {
       this.ws = new WebSocket("wss://echo.websocket.org");
       this.ws.onopen = evt => {
-        console.log("Connection open ...");
         this.ws.send(
           JSON.stringify({
             user: "lh123",
@@ -484,8 +492,6 @@ export default {
       };
 
       this.ws.onmessage = evt => {
-        console.log(evt);
-        console.log("Received Message: " + evt.data);
         let obj = {
           user: "lh123",
           zoom: this.mapConfig.zoom,
@@ -501,7 +507,6 @@ export default {
       };
 
       this.ws.onclose = evt => {
-        console.log("连接关闭。Connection closed.");
       };
     }
   }

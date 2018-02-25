@@ -10,7 +10,7 @@ Vue.prototype.$axios = axios
 require('./mock')
 Vue.use(VueRouter);
 Vue.use(iView);
-
+var store = require("./store/index.js");
 // 路由配置
 const RouterConfig = {
     //mode: 'history',
@@ -31,6 +31,7 @@ router.afterEach((to, from, next) => {
 
 new Vue({
     el: '#app',
+    store:store,
     router: router,
     render: h => h(App)
 });
