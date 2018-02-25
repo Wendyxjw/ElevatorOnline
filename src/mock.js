@@ -158,7 +158,9 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                 PeakRunningRatio: 11 //高峰期运行占比   
             },
             trend: {
-                chart1: [{
+                chart1: {
+                    xText:["电梯1","电梯2","电梯3","电梯4","电梯5"],
+                    list:[{
                         name: "Forest",
                         data: [320, 332, 301, 334, 390]
                     },
@@ -174,7 +176,58 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                         name: "Wetland",
                         data: [98, 77, 101, 99, 40]
                     }
-                ]
+                    ]
+                },
+                chart2:{
+                    xText:["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                    list:[
+                        {
+                          name: "邮件营销",
+                          data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                          name: "联盟广告",
+                          data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                          name: "视频广告",
+                          data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                          name: "直接访问",
+                          data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                          name: "搜索引擎",
+                          data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
+                      ]
+                },
+                chart3:{
+                    xText: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                    list:[
+                        {
+                          name: "邮件营销",
+                          data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                          name: "联盟广告",
+                          data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                          name: "视频广告",
+                          data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                          name: "直接访问",
+                          data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                          name: "搜索引擎",
+                          data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
+                      ]
+                }
             }
 
         },
@@ -552,7 +605,6 @@ Mock.mock('/api/index/MaintenanceRate', 'get', (req, res) => {
 })
 //首页
 Mock.mock('/api/index/MapData', 'post', (req, res) => {
-    console.log(req);
     return {
         Status: true,
         Data: {
@@ -560,7 +612,7 @@ Mock.mock('/api/index/MapData', 'post', (req, res) => {
             data: [{
                     name: "月湖公园",
                     value: 0.88, //百分比
-                    num: 10 //数量
+                    num: 10, //数量
                 },
                 {
                     name: "宁波东站",

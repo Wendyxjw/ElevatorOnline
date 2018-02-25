@@ -28,7 +28,7 @@ export default {
       radioval: "电梯里",
       legend: [],
       series: [],
-      pluginData:{}
+      pluginData: {}
     };
   },
   mounted() {
@@ -48,11 +48,24 @@ export default {
   methods: {
     getData() {
       var data = Filter.initialTolowerCase(this.pluginData);
-        this.legend = this.getLegend(data.chart1);
-        this.series = this.getSeries(data.chart1);
-        this.initChart1();
-        this.initChart2();
-        this.initChart3();
+      this.chart1 = {
+        legend: this.getLegend(data.chart1.list),
+        xAxis: data.chart1.xText,
+        series: this.getSeries(data.chart1.list, "bar")
+      };
+      this.chart2 = {
+        legend: this.getLegend(data.chart2.list),
+        xAxis: data.chart2.xText,
+        series: this.getSeries(data.chart2.list, "line")
+      };
+      this.chart3 = {
+        legend: this.getLegend(data.chart3.list),
+        xAxis: data.chart3.xText,
+        series: this.getSeries(data.chart3.list, "line", "area")
+      };
+      this.initChart1();
+      this.initChart2();
+      this.initChart3();
     },
     getLegend(data) {
       var arr = [];
@@ -62,13 +75,16 @@ export default {
       }
       return arr;
     },
-    getSeries(data) {
+    getSeries(data, type, area) {
       var arr = [];
       for (let i in data) {
         arr[i] = data[i];
-        arr[i].type = "bar";
         arr[i].barGap = 0;
-        //console.log(data[i].name)
+        arr[i].type = type;
+        if (area == "area") {
+          arr[i].stack= '总量',
+          arr[i].areaStyle = { normal: {} };
+        }
       }
       return arr;
     },
@@ -92,7 +108,7 @@ export default {
           }
         },
         legend: {
-          data: this.legend,
+          data: this.chart1.legend,
           type: "scroll",
           orient: "vertical",
           right: 0,
@@ -108,20 +124,13 @@ export default {
           orient: "vertical",
           left: "right",
           top: "center"
-          // feature: {
-          //   mark: { show: true },
-          //   dataView: { show: true, readOnly: false },
-          //   magicType: { show: true, type: ["line", "bar", "stack", "tiled"] },
-          //   restore: { show: true },
-          //   saveAsImage: { show: true }
-          // }
         },
         calculable: true,
         xAxis: [
           {
             type: "category",
             axisTick: { show: false },
-            data: ["2012", "2013", "2014", "2015", "2016"],
+            data: this.chart1.xAxis,
             axisLabel: {
               color: "#fff",
               fontSize: 12
@@ -147,7 +156,7 @@ export default {
             }
           }
         ],
-        series: this.series
+        series: this.chart1.series
       };
       myChart.setOption(option);
     },
@@ -167,7 +176,7 @@ export default {
         },
         legend: {
           type: "scroll",
-          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"],
+          data: this.chart2.legend,
           textStyle: {
             color: "#fff",
             fontSize: 12
@@ -178,7 +187,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+          data: this.chart2.xAxis,
           axisLine: {
             lineStyle: {
               color: "#fff"
@@ -193,38 +202,7 @@ export default {
             }
           }
         },
-        series: [
-          {
-            name: "邮件营销",
-            type: "line",
-            stack: "总量",
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: "联盟广告",
-            type: "line",
-            stack: "总量",
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: "视频广告",
-            type: "line",
-            stack: "总量",
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: "直接访问",
-            type: "line",
-            stack: "总量",
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: "搜索引擎",
-            type: "line",
-            stack: "总量",
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
+        series: this.chart2.series
       };
 
       myChart.setOption(option);
@@ -250,7 +228,7 @@ export default {
           }
         },
         legend: {
-          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"],
+          data: this.chart3.legend,
           textStyle: {
             color: "#fff",
             fontSize: 12
@@ -263,7 +241,7 @@ export default {
           {
             type: "category",
             boundaryGap: false,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            data: this.chart3.xAxis,
             axisLine: {
               lineStyle: {
                 color: "#fff"
@@ -281,49 +259,7 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            name: "邮件营销",
-            type: "line",
-            stack: "总量",
-            areaStyle: { normal: {} },
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: "联盟广告",
-            type: "line",
-            stack: "总量",
-            areaStyle: { normal: {} },
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: "视频广告",
-            type: "line",
-            stack: "总量",
-            areaStyle: { normal: {} },
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: "直接访问",
-            type: "line",
-            stack: "总量",
-            areaStyle: { normal: {} },
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: "搜索引擎",
-            type: "line",
-            stack: "总量",
-            label: {
-              normal: {
-                show: true,
-                position: "top"
-              }
-            },
-            areaStyle: { normal: {} },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
+        series: this.chart3.series
       };
       myChart.setOption(option);
     }
