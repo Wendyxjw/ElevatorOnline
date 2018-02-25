@@ -86,7 +86,7 @@ Mock.mock('/api/index/DayHandleData', 'get', (req, res) => {
                     Name: "sssss"
                 }
             ],
-            videoSrc:"http://ugcbsy.qq.com/k05214l8gvv.mp4?sdtfrom=v1010&guid=7d7dead6a84f77d821875a1984d535f8&vkey=C720F3948A013EEBB448A4C64A909EB778CF2047B79773C7F2756FFE4825FE84DA57CEF5E25F0BBA20DA611DEE9A7029B39B8CC60569545D7B38BF954FA819D058ED867801CB06F066D6AD0E9CD901C7410BB0822BE3D8EDE24098D57D2E54E575B85F52A2C0EA6D2DD1479FABC1BC6F3AA2DD996C04625A"//视频地址
+            videoSrc: "http://ugcbsy.qq.com/k05214l8gvv.mp4?sdtfrom=v1010&guid=7d7dead6a84f77d821875a1984d535f8&vkey=C720F3948A013EEBB448A4C64A909EB778CF2047B79773C7F2756FFE4825FE84DA57CEF5E25F0BBA20DA611DEE9A7029B39B8CC60569545D7B38BF954FA819D058ED867801CB06F066D6AD0E9CD901C7410BB0822BE3D8EDE24098D57D2E54E575B85F52A2C0EA6D2DD1479FABC1BC6F3AA2DD996C04625A" //视频地址
         },
         //接口错误信息
         ErrorMessage: "",
@@ -146,7 +146,7 @@ Mock.mock('/api/index/MaintenanceSituation', 'get', (req, res) => {
             MaintenanceRate: 80, //维保完成率
             PlanningTime: 12, //计划用时
             PracticalTime: 11, //实际用时
-            mapCenter:"宁波"//地图中心
+            mapCenter: "宁波" //地图中心
         },
         ErrorMessage: "",
         ErrorCode: 0
@@ -364,6 +364,58 @@ Mock.mock('/api/index/MaintenanceRate', 'get', (req, res) => {
                 }
             ],
 
+        },
+        ErrorMessage: "",
+        ErrorCode: 0
+    }
+})
+//首页
+Mock.mock('/api/index/MapData', 'post', (req, res) => {
+    console.log(req);
+    return {
+        Status: true,
+        Data: {
+            //位置参数
+            data: [{
+                    name: "月湖公园",
+                    value: 0.88, //百分比
+                    num: 10 //数量
+                },
+                {
+                    name: "宁波东站",
+                    value: 0.38,
+                    num: 5
+                },
+                {
+                    name: "宁波体育中心",
+                    value: 0.95,
+                    num: 1
+                },
+                {
+                    name: "科技公园",
+                    value: 0.6,
+                    num: 4
+                },
+                {
+                    name: "四安文化乐园",
+                    value: 0.5,
+                    num: 20
+                },
+                {
+                    name: "体育馆",
+                    value: 1.0,
+                    num: 30
+                }
+            ],
+            //地图坐标
+            geoCoordMap: {
+                月湖公园: [121.549234, 29.874051], //名称、坐标
+                宁波东站: [121.591921, 29.854131],
+                宁波体育中心: [121.588328, 29.877307],
+                科技公园: [121.637771, 29.880564],
+                四安文化乐园: [121.681177, 29.848743],
+                体育馆: [121.612762, 29.918887]
+            },
         },
         ErrorMessage: "",
         ErrorCode: 0

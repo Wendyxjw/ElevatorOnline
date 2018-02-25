@@ -160,6 +160,7 @@
 </template>
 <script>
 const moment = require("moment");
+import { getMapData } from "../../service/indexnet.js";
 import left1 from "./left1.vue";
 import left2 from "./left2.vue";
 import left3 from "./left3.vue";
@@ -176,6 +177,7 @@ export default {
       myChart: null,
       mapConfig: {
         zoom: 12,
+        center: [121.628572, 29.866033],
         data: [],
         geoCoordMap: []
       }
@@ -231,7 +233,7 @@ export default {
           }
         },
         bmap: {
-          center: [121.628572, 29.866033],
+          center: this.mapConfig.center,
           zoom: this.mapConfig.zoom, //地图放大级别
           roam: true,
           silent: true,
@@ -452,8 +454,13 @@ export default {
       bmap.enableAutoResize();
       bmap.addEventListener("zoomend", (type, target) => {
         this.mapConfig.zoom = bmap.getZoom();
+        this.mapConfig.center = [bmap.getCenter().lng, bmap.getCenter().lat];
         this.ws.send(
-          JSON.stringify({ user: "lh123", zoom: this.mapConfig.zoom })
+          JSON.stringify({
+            user: "lh123",
+            zoom: this.mapConfig.zoom,
+            center: this.mapConfig.center
+          })
         );
       });
       bmap.addEventListener("click", function(type) {
@@ -465,7 +472,12 @@ export default {
       this.ws = new WebSocket("wss://echo.websocket.org");
       this.ws.onopen = evt => {
         console.log("Connection open ...");
-        this.ws.send("first");
+        this.ws.send(
+          JSON.stringify({
+            user: "lh123",
+            zoom: this.mapConfig.zoom
+          })
+        );
         // setInterval(() => {
         //   this.ws.send("北京时间：" + moment().format("YY-HH-dd hh:mm:ss"));
         // }, 1000);
@@ -474,50 +486,17 @@ export default {
       this.ws.onmessage = evt => {
         console.log(evt);
         console.log("Received Message: " + evt.data);
-        if (evt.data === "first") {
-          this.mapConfig.data = [
-            {
-              name: "月湖公园",
-              value: 0.88,
-              num: 10
-            },
-            {
-              name: "宁波东站",
-              value: 0.38,
-              num: 5
-            },
-            {
-              name: "宁波体育中心",
-              value: 0.95,
-              num: 1
-            },
-            {
-              name: "科技公园",
-              value: 0.6,
-              num: 4
-            },
-            {
-              name: "四安文化乐园",
-              value: 0.5,
-              num: 20
-            },
-            {
-              name: "体育馆",
-              value: 1.0,
-              num: 30
-            }
-          ];
+        let obj = {
+          user: "lh123",
+          zoom: this.mapConfig.zoom,
+          center: this.mapConfig.center
+        };
+        getMapData(obj).then(res => {
+          this.mapConfig.data = res.data;
+          this.mapConfig.geoCoordMap = res.geoCoordMap;
+          this.initmap();
+        });
 
-          this.mapConfig.geoCoordMap = {
-            月湖公园: [121.549234, 29.874051],
-            宁波东站: [121.591921, 29.854131],
-            宁波体育中心: [121.588328, 29.877307],
-            科技公园: [121.637771, 29.880564],
-            四安文化乐园: [121.681177, 29.848743],
-            体育馆: [121.612762, 29.918887]
-          };
-        }
-        this.initmap();
         // this.ws.close();
       };
 

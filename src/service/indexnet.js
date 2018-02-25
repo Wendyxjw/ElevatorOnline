@@ -52,14 +52,18 @@ module.exports = {
     },
     //趋势
     getTrend(obj) {
-        return axios.post("/api/index/Trend",obj)
+        return axios.post("/api/index/Trend", obj)
     },
     //日事件感知与智能处理 详情页
-    getDayHandleDetail(obj){
-        return axios.post("/api/index/DayHandleDetail",obj)
+    getDayHandleDetail(obj) {
+        return axios.post("/api/index/DayHandleDetail", obj)
     },
     //本月维保完成率
-    getMaintenanceRate(){
+    getMaintenanceRate() {
         return axios.get("/api/index/MaintenanceRate")
+    },
+    //首页地图数据
+    getMapData(obj) {
+        return axios.post("/api/index/MapData", obj)
     }
 }
