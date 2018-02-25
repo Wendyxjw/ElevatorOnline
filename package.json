@@ -25,6 +25,8 @@
     "vue-router": "^2.2.1"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "moment": "^2.20.1",
     "autoprefixer-loader": "^2.0.0",
     "axios": "^0.18.0",
     "babel": "^6.23.0",
