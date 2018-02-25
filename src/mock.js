@@ -114,19 +114,19 @@ Mock.mock('/api/index/WarnEventList', 'get', (req, res) => {
             ],
             //列表内容
             TableList: [{
-                    Time: 'John Brown',
-                    Address: "123",
-                    Type: 'New York No. 1 Lake Park',
+                    Time: '1John Brown',
+                    Address: "1123",
+                    Type: '1New York No. 1 Lake Park',
                 },
                 {
-                    Time: 'John Brown',
-                    Address: "123",
-                    Type: 'New York No. 1 Lake Park',
+                    Time: '2John Brown',
+                    Address: "2123",
+                    Type: '2New York No. 1 Lake Park',
                 },
                 {
-                    Time: 'John Brown',
-                    Address: "123",
-                    Type: 'New York No. 1 Lake Park',
+                    Time: '3John Brown',
+                    Address: "3123",
+                    Type: '3New York No. 1 Lake Park',
                 }
             ]
         },
