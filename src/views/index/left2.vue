@@ -10,14 +10,20 @@
       display: inline-block;
       text-align: center;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
-      width: 30%;
+      white-space: nowrap;
+      width: 32%;
+    }
+    .tTitle {
+      font-weight: bold;
+      background-color: #f8f8f9;
+      border-bottom: 1px solid;
+      width: 33.3%;
     }
   }
   #box {
     width: 100%;
-    height: 96px;
+    height: 130px;
     overflow: hidden;
   }
   .anim {
@@ -27,8 +33,8 @@
   #con1 li {
     display: inline-block;
     width: 100%;
-    line-height: 30px;
-    height: 30px;
+    line-height: 40px;
+    height: 40px;
   }
 }
 </style>
@@ -37,16 +43,16 @@
     <div class="title">{{title}}</div>
     <div class="ulBox">
       <div>
-        <div class="idiv" v-for="item in tableTitle" :key="item.id">
+        <div class="idiv tTitle" v-for="item in tableTitle" :key="item.id">
           {{item.title}}
         </div>
       </div>
       <div id="box" @mouseover="stopT()" @mouseout="beginT()">
         <ul id="con1" ref="con1" :class="{anim:animate==true}">
           <li v-for="item in tableList" :key="item.id">
-            <div class="idiv" title="item.time">{{item.time}}</div>
-            <div class="idiv" title="item.address">{{item.address}}</div>
-            <div class="idiv" title="item.type">{{item.type}}</div>
+            <div class="idiv" :title="item.time">{{item.time}}</div>
+            <div class="idiv" :title="item.address">{{item.address}}</div>
+            <div class="idiv" :title="item.type">{{item.type}}</div>
           </li>
         </ul>
       </div>
