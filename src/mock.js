@@ -85,7 +85,8 @@ Mock.mock('/api/index/DayHandleData', 'get', (req, res) => {
                     Value: 1548,
                     Name: "sssss"
                 }
-            ]
+            ],
+            videoSrc:"http://ugcbsy.qq.com/k05214l8gvv.mp4?sdtfrom=v1010&guid=7d7dead6a84f77d821875a1984d535f8&vkey=C720F3948A013EEBB448A4C64A909EB778CF2047B79773C7F2756FFE4825FE84DA57CEF5E25F0BBA20DA611DEE9A7029B39B8CC60569545D7B38BF954FA819D058ED867801CB06F066D6AD0E9CD901C7410BB0822BE3D8EDE24098D57D2E54E575B85F52A2C0EA6D2DD1479FABC1BC6F3AA2DD996C04625A"//视频地址
         },
         //接口错误信息
         ErrorMessage: "",
@@ -214,6 +215,155 @@ Mock.mock('/api/index/Trend', 'post', (req, res) => {
                 data: [98, 77, 101, 99, 40]
             }
         ],
+        ErrorMessage: "",
+        ErrorCode: 0
+    }
+})
+//日事件感知与智能处理 详情页
+//入参
+// {
+//     pageSize: 10,//页面大小
+//     pageIndex: 1, //第几页 从1开始
+//     selectInfor: "",//信息来源 为空则选择全部内容 传入的是sourceInfor里面的value
+//     selectHandel: ""//处理状态 为空则选择全部内容 传入的是handelStatus里面的value
+//   }
+Mock.mock('/api/index/DayHandleDetail', 'post', (req, res) => {
+    return {
+        Status: true,
+        Data: {
+            //信息来源
+            sourceInfor: [{
+                    value: "物业",
+                    label: "物业"
+                },
+                {
+                    value: "北仑区",
+                    label: "北仑区"
+                },
+                {
+                    value: "海曙区",
+                    label: "海曙区"
+                }
+            ],
+            //处理状态
+            handelStatus: [{
+                    value: "待响应",
+                    label: "待响应"
+                },
+                {
+                    value: "处理中",
+                    label: "处理中"
+                },
+                {
+                    value: "已完成",
+                    label: "已完成"
+                }
+            ],
+            //表头
+            tableTitle: [{
+                    title: "Name",
+                    key: "name"
+                },
+                {
+                    title: "Age",
+                    key: "age"
+                },
+                {
+                    title: "Address",
+                    key: "address"
+                }
+            ],
+            //列表内容
+            tableList: [{
+                    name: "John Brown",
+                    age: 18,
+                    address: "New York No. 1 Lake Park",
+                    date: "2016-10-03"
+                },
+                {
+                    name: "Jim Green",
+                    age: 24,
+                    address: "London No. 1 Lake Park",
+                    date: "2016-10-01"
+                },
+                {
+                    name: "Joe Black",
+                    age: 30,
+                    address: "Sydney No. 1 Lake Park",
+                    date: "2016-10-02"
+                },
+                {
+                    name: "Jon Snow",
+                    age: 26,
+                    address: "Ottawa No. 2 Lake Park",
+                    date: "2016-10-04"
+                }
+            ],
+            //共有几条数据
+            pageTotle: 100
+        },
+        ErrorMessage: "",
+        ErrorCode: 0
+    }
+})
+
+//本月维保完成率
+Mock.mock('/api/index/MaintenanceRate', 'get', (req, res) => {
+    return {
+        Status: true,
+        Data: {
+            //表头
+            tableTitle: [{
+                    title: "区域",
+                    key: "address"
+                },
+                {
+                    title: "计划",
+                    key: "plan"
+                },
+                {
+                    title: "实际",
+                    key: "actual"
+                },
+                {
+                    title: "完成率",
+                    key: "rate"
+                }
+            ],
+            //列表内容
+            tableList: [{
+                    address: "华北",
+                    plan: 2.0,
+                    actual: 4.9,
+                    rate: 7.0
+                },
+                {
+                    address: "华东",
+                    plan: 4.0,
+                    actual: 8.9,
+                    rate: 3.0
+                },
+                {
+                    address: "华南",
+                    plan: 2.0,
+                    actual: 6.9,
+                    rate: 0.6
+                },
+                {
+                    address: "东北",
+                    plan: 1.0,
+                    actual: 6.9,
+                    rate: 2.0
+                },
+                {
+                    address: "西北西南",
+                    plan: 12.0,
+                    actual: 14.9,
+                    rate: 0.1
+                }
+            ],
+
+        },
         ErrorMessage: "",
         ErrorCode: 0
     }

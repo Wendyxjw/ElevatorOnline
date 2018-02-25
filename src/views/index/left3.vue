@@ -104,7 +104,7 @@
         </header>
         <Row>
           <Col span="10">
-          <Table :columns="columns1" :data="data1"></Table>
+          <Table :columns="tableTitle" :data="tableList"></Table>
           </Col>
           <Col span="14">
           <div id="left3chart1" class="chart"></div>
@@ -117,58 +117,26 @@
 <script>
 var echarts = require("echarts");
 import Filter from "../../utils/filter";
-import { getMaintenanceSituation } from "../../service/indexnet.js";
+import {
+  getMaintenanceSituation,
+  getMaintenanceRate
+} from "../../service/indexnet.js";
 export default {
   name: "left3",
   data() {
     return {
       title: "维保情况",
       leftmodal1: false,
-      columns1: [
-        {
-          title: "区域",
-          key: "name"
-        },
-        {
-          title: "计划",
-          key: "age"
-        },
-        {
-          title: "实际",
-          key: "address"
-        },
-        {
-          title: "完成率",
-          key: "date"
-        }
-      ],
-      data1: [
-        {
-          name: "John Brown",
-          age: 18,
-          address: "New York No. 1 Lake Park",
-          date: "2016-10-03"
-        },
-        {
-          name: "Jim Green",
-          age: 24,
-          address: "London No. 1 Lake Park",
-          date: "2016-10-01"
-        },
-        {
-          name: "Joe Black",
-          age: 30,
-          address: "Sydney No. 1 Lake Park",
-          date: "2016-10-02"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        }
-      ],
-      number:{}
+      tableTitle: [],
+      tableList: [],
+      number: {},
+      xAxis: [], //图标的X坐标
+      //图标的具体数据
+      series: {
+        palnData: [],
+        actualData: [],
+        rateData: []
+      }
     };
   },
   mounted() {
@@ -177,25 +145,32 @@ export default {
   },
   methods: {
     getData() {
-      getMaintenanceSituation().then(res =>{
-          this.number = Filter.initialTolowerCase(res);
-          this.number.timeRate=parseFloat((this.number.practicalTime/this.number.planningTime*100).toFixed(2));
-          if(this.number.timeRate>100){
-            
-            this.number.timeRate=parseFloat((this.number.planningTime/this.number.practicalTime*100).toFixed(2));
-            this.number.practicalTime="100%";
-            this.number.planningTime=this.number.timeRate+"%";
-
-          }else{
-            this.number.planningTime="100%";
-            this.number.practicalTime=this.number.timeRate+"%";
-          }
-
-      })
+      getMaintenanceSituation().then(res => {
+        this.number = Filter.initialTolowerCase(res);
+        this.number.timeRate = parseFloat(
+          (this.number.practicalTime / this.number.planningTime * 100).toFixed(
+            2
+          )
+        );
+        if (this.number.timeRate > 100) {
+          this.number.timeRate = parseFloat(
+            (
+              this.number.planningTime /
+              this.number.practicalTime *
+              100
+            ).toFixed(2)
+          );
+          this.number.practicalTime = "100%";
+          this.number.planningTime = this.number.timeRate + "%";
+        } else {
+          this.number.planningTime = "100%";
+          this.number.practicalTime = this.number.timeRate + "%";
+        }
+      });
     },
     leftmodalShow() {
       this.leftmodal1 = true;
-      this.initchart();
+      this.getMaintenance();
     },
     initchart() {
       var myChart = echarts.init(document.getElementById("left3chart1"));
@@ -213,14 +188,6 @@ export default {
             }
           }
         },
-        toolbox: {
-          // feature: {
-          //   dataView: { show: true, readOnly: false },
-          //   magicType: { show: true, type: ["line", "bar"] },
-          //   restore: { show: true },
-          //   saveAsImage: { show: true }
-          // }
-        },
         legend: {
           data: ["蒸发量", "降水量", "平均温度"],
           bottom: 0
@@ -228,7 +195,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["华北", "华东", "华南", "东北", "西南西北"],
+            data: this.xAxis,
             axisPointer: {
               type: "shadow"
             }
@@ -260,18 +227,18 @@ export default {
           {
             name: "计划",
             type: "bar",
-            data: [2.0, 4.9, 7.0, 23.2, 25.6]
+            data: this.series.planData
           },
           {
             name: "实际",
             type: "bar",
-            data: [2.6, 5.9, 9.0, 26.4, 28.7]
+            data: this.series.actualData
           },
           {
             name: "完成率",
             type: "line",
             yAxisIndex: 1,
-            data: [2.0, 2.2, 3.3, 4.5, 6.3]
+            data: this.series.rateData
           }
         ]
       };
@@ -290,6 +257,28 @@ export default {
       );
       map.setCurrentCity("宁波"); // 设置地图显示的城市 此项是必须设置的
       map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    },
+    getMaintenance() {
+      getMaintenanceRate().then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.tableTitle = data.tableTitle;
+        this.tableList = data.tableList;
+        var planData = [],
+          actualData = [],
+          rateData = [];
+        for (let i in data.tableList) {
+          this.xAxis[i] = data.tableList[i].address;
+          planData[i] = data.tableList[i].plan;
+          actualData[i] = data.tableList[i].actual;
+          rateData[i] = data.tableList[i].rate;
+        }
+        this.series = {
+          planData: planData,
+          actualData: actualData,
+          rateData: rateData
+        };
+        this.initchart();
+      });
     }
   }
 };

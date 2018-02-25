@@ -24,7 +24,10 @@
       </div>
         </Col>
         <Col span="12">
-        <div>视频</div>
+        <div id="myvideo">
+          
+  
+        </div>
 
         </Col>
     </Row>
@@ -44,6 +47,7 @@
 var echarts = require("echarts");
 import Filter from "../../utils/filter";
 import { getDayHandleData } from "../../service/indexnet.js";
+var $=require("jquery")
 export default {
   name: "left1",
   data() {
@@ -52,7 +56,8 @@ export default {
       list: {},
       chart1: {},
       chart2: {},
-      chart3: {}
+      chart3: {},
+      videoSrc:""
     };
   },
   mounted() {
@@ -62,6 +67,18 @@ export default {
     getData() {
       getDayHandleData().then(res => {
         var data = Filter.initialTolowerCase(res);
+        //动态插入video 直接插入渲染有问题
+        this.videoSrc=data.videoSrc;
+        // autoplay="autoplay"  loop="loop" 
+        var _dom = `
+                <video  width="100%" height="100%" autoplay="autoplay" controls="controls">
+            
+            <source src="`+this.videoSrc+`" type="video/mp4">
+           你的浏览器暂不支持视频播放！
+          </video>`;
+        var element=$("#myvideo");
+        element.html(_dom)
+
         var listData = {};
         for (let i in data.list) {
           var item = data.list[i];
