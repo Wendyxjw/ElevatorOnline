@@ -1,6 +1,7 @@
 //http请求模块
 
 "use strict";
+require("babel-polyfill");
 var axios = require("axios");
 
 // 请求拦截
@@ -53,5 +54,12 @@ module.exports = {
     getTrend(obj) {
         return axios.post("/api/index/Trend",obj)
     },
-
+    //日事件感知与智能处理 详情页
+    getDayHandleDetail(obj){
+        return axios.post("/api/index/DayHandleDetail",obj)
+    },
+    //本月维保完成率
+    getMaintenanceRate(){
+        return axios.get("/api/index/MaintenanceRate")
+    }
 }

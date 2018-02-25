@@ -1,12 +1,12 @@
 <style  scoped lang="less">
 .dayevent {
-    padding: 10px 0;
+  padding: 10px 0;
   .con {
     width: 70%;
     margin: auto;
   }
-  .mar-b10{
-      margin-bottom: 10px;
+  .mar-b10 {
+    margin-bottom: 10px;
   }
 }
 </style>
@@ -15,16 +15,16 @@
 <p class="text-center text-large-black mar-b10">{{title}}</p>
 <div class="con">
     <div class="mar-b10">
-        <Select v-model="selectInfor" style="width:100px" @on-change="setInfor()" placeholder="信息来源">
+        <Select v-model="param.selectInfor" style="width:100px" @on-change="selectData()" placeholder="信息来源">
             <Option v-for="item in inforList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
-        <Select v-model="selectHandel" style="width:100px" @on-change="setHandel()" placeholder="处理状态">
+        <Select v-model="param.selectHandel" style="width:100px" @on-change="selectData()" placeholder="处理状态">
             <Option v-for="item in handelList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
     </div>
-    <Table :columns="columns1" :data="data1" class="mar-b10"></Table>
+    <Table :columns="tableTitle" :data="tableList" class="mar-b10"></Table>
     <div>
-        <Page :total="100" class="right" show-sizer></Page>
+        <Page :total="pageTotle" class="right" show-sizer @on-change="getData()"></Page>
     </div>
     
 </div>
@@ -34,85 +34,48 @@
 </div>
 </template>
 <script>
+import Filter from "../../utils/filter";
+import { getDayHandleDetail } from "../../service/indexnet.js";
 export default {
   data() {
     return {
       title: "电梯物联网标题",
       disabledGroup: "维保单位",
-      inforList: [
-        {
-          value: "物业",
-          label: "物业"
-        },
-        {
-          value: "北仑区",
-          label: "北仑区"
-        },
-        {
-          value: "海曙区",
-          label: "海曙区"
-        }
-      ],
-      handelList: [
-        {
-          value: "待响应",
-          label: "待响应"
-        },
-        {
-          value: "处理中",
-          label: "处理中"
-        },
-        {
-          value: "已完成",
-          label: "已完成"
-        }
-      ],
-      selectInfor: "",
-      selectHandel: "",
-      columns1: [
-        {
-          title: "Name",
-          key: "name"
-        },
-        {
-          title: "Age",
-          key: "age"
-        },
-        {
-          title: "Address",
-          key: "address"
-        }
-      ],
-      data1: [
-        {
-          name: "John Brown",
-          age: 18,
-          address: "New York No. 1 Lake Park",
-          date: "2016-10-03"
-        },
-        {
-          name: "Jim Green",
-          age: 24,
-          address: "London No. 1 Lake Park",
-          date: "2016-10-01"
-        },
-        {
-          name: "Joe Black",
-          age: 30,
-          address: "Sydney No. 1 Lake Park",
-          date: "2016-10-02"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        }
-      ]
+      inforList: [],
+      handelList: [],
+      tableTitle: [],
+      tableList: [],
+      pageTotle: 100, //列表总数
+      param: {
+        pageSize: 10,
+        pageIndex: 0, //第几页
+        selectInfor: "",
+        selectHandel: ""
+      }
     };
   },
 
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      console.log(this.param);
+      getDayHandleDetail(this.param).then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.inforList = data.sourceInfor;
+        this.handelList = data.handelStatus;
+        this.tableTitle = data.tableTitle;
+        this.tableList = data.tableList;
+        this.pageTotle = data.pageTotle;
+        this.param.pageIndex+=1;
+      });
+    },
+    selectData(){
+      //筛选数据时 页数置为1
+      this.param.pageIndex=0;
+      this.getData()
+    }
+  }
 };
 </script>

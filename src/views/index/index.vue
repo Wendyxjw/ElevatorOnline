@@ -31,7 +31,7 @@
   }
   .right-box {
     width: 20%;
-    min-width: 500px;
+   // min-width: 500px;
     right: 0;
   }
   .point {
@@ -57,14 +57,14 @@
   .box-top {
     position: absolute;
     top: 0;
-    left: 25%;
-    width: 50%;
+    left: 32.5%;
+    width: 45%;
   }
   .box-bottom {
     position: absolute;
     bottom: 0;
-    left: 25%;
-    width: 50%;
+    left: 32.5%;
+    width: 45%;
   }
   .check {
     line-height: 50px;
