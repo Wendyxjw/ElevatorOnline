@@ -515,9 +515,6 @@ export default {
         .getBMap();
       bmap.addControl(new BMap.MapTypeControl());
       bmap.addControl(new BMap.ScaleControl());
-      bmap.addControl(
-        new BMap.NavigationControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT })
-      );
 
       bmap.enableAutoResize();
       bmap.addEventListener("zoomend", (type, target) => {
