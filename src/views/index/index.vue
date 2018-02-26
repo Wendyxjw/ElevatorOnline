@@ -126,7 +126,7 @@
       <div class="index-con  text-center box-bottom"> 
         <div class="check text-center text-large-white">
 
-              <CheckboxGroup v-model="checkval" size="large" class="text-center">
+              <CheckboxGroup v-model="checkval" size="large" class="text-center" @on-change="changeEvent()">
                   <Checkbox label="电梯分布"></Checkbox>
                   <Checkbox label="维保单位"></Checkbox>
                   <Checkbox label="故障分布"></Checkbox>
@@ -173,17 +173,21 @@ export default {
   data() {
     return {
       name: "电梯物联网标题",
-      checkval: ["维保单位"],
-
+      checkval: ["电梯分布"],
       ws: null,
       myChart: null,
       mapConfig: {
         zoom: 12,
         center: [121.628572, 29.866033],
         data: [],
-        geoCoordMap: []
+        geoCoordMap: [],
+        typeStyle: {
+          qColorNomal: "blue",
+          qColorError: "red",
+          bColorNomal: "#fff",
+          type: [1]
+        }
       }
-
     };
   },
   components: {
@@ -195,30 +199,46 @@ export default {
     right3
   },
   mounted() {
-
     this.websocketEvent();
     this.getData();
     this.initmap();
-
   },
   methods: {
     getData() {
       getindex().then(res => {
         var data = Filter.initialTolowerCase(res);
-        this.$store.default.dispatch("getPluginsData", data);  
+        this.$store.default.dispatch("getPluginsData", data);
       });
     },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
 
-      const convertData = data => {
+      const convertData = (data, type) => {
         var res = [];
-        for (let i = 0; i < data.length; i++) {
-          let geoCoord = this.mapConfig.geoCoordMap[data[i].name];
+        let dataList = data.slice();
+        if (this.mapConfig.typeStyle.type.indexOf(3) !== -1) {
+          if (type === 2) {
+            dataList = dataList.filter(ele => {
+              return ele.isError;
+            });
+          } else if (type === 1) {
+            dataList = dataList.filter(ele => {
+              return !ele.isError;
+            });
+          }
+        } else {
+          dataList = type === 2 ? [] : dataList;
+        }
+        dataList =
+          type === 1 && this.mapConfig.typeStyle.type.indexOf(1) === -1
+            ? []
+            : dataList;
+        for (let i = 0; i < dataList.length; i++) {
+          let geoCoord = this.mapConfig.geoCoordMap[dataList[i].name];
           if (geoCoord) {
             res.push({
-              name: data[i].name,
-              value: geoCoord.concat([data[i].value, data[i].num])
+              name: dataList[i].name,
+              value: geoCoord.concat([dataList[i].value, dataList[i].num])
             });
           }
         }
@@ -383,7 +403,7 @@ export default {
         },
         series: [
           {
-            name: "点",
+            name: "蓝", //气球
             type: "scatter",
             coordinateSystem: "bmap",
             symbol: "pin", //气泡
@@ -392,7 +412,6 @@ export default {
               normal: {
                 show: true,
                 formatter: function(params) {
-
                   return params.data.value[3];
                 },
                 textStyle: {
@@ -403,19 +422,51 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: "#F62157" //标志颜色
+                color: _this.mapConfig.typeStyle.qColorNomal
+                //气球颜色
               }
             },
             zlevel: 101,
-            data: convertData(_this.mapConfig.data)
+            data: convertData(_this.mapConfig.data, 1)
           },
           {
-            name: "Top",
+            name: "红", //气球
+            type: "scatter",
+            coordinateSystem: "bmap",
+            symbol: "pin", //气泡
+            symbolSize: 50,
+            label: {
+              normal: {
+                show: true,
+                formatter: function(params) {
+                  return params.data.value[3];
+                },
+                textStyle: {
+                  color: "#fff",
+                  fontSize: 9
+                }
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: _this.mapConfig.typeStyle.qColorError
+                //气球颜色
+              }
+            },
+            zlevel: 102,
+            data: convertData(_this.mapConfig.data, 2)
+          },
+          {
+            name: "Top", //底部
             type: "effectScatter",
             coordinateSystem: "bmap",
             data: convertData(_this.mapConfig.data),
             symbolSize: function(val) {
-              return val[2] * 35;
+              let size =
+                _this.mapConfig.typeStyle.type.indexOf(2) !== -1
+                  ? val[2] * 35
+                  : 20;
+              return size;
             },
             showEffectOn: "render",
             rippleEffect: {
@@ -433,8 +484,15 @@ export default {
               normal: {
                 color: function(args) {
                   let [color, val] = ["", args.data.value[2]];
-                  color =
-                    val < 0.6 ? "#f4e925" : val > 0.85 ? "#007236" : "#ccff33";
+                  if (_this.mapConfig.typeStyle.type.indexOf(2) !== -1) {
+                    color =
+                      val < 0.6
+                        ? "#f4e925"
+                        : val > 0.85 ? "#007236" : "#ccff33";
+                  } else {
+                    color = _this.mapConfig.typeStyle.bColorNomal;
+                  }
+
                   return color;
                 },
                 shadowBlur: 10,
@@ -506,8 +564,33 @@ export default {
         // this.ws.close();
       };
 
-      this.ws.onclose = evt => {
-      };
+      this.ws.onclose = evt => {};
+    },
+    changeEvent() {
+      this.mapConfig.typeStyle.type = [];
+      this.checkval.forEach(ele => {
+        switch (ele) {
+          case "电梯分布":
+            this.mapConfig.typeStyle.type.push(1);
+            break;
+          case "维保单位":
+            this.mapConfig.typeStyle.type.push(2);
+            break;
+          case "故障分布":
+            this.mapConfig.typeStyle.type.push(3);
+            break;
+
+          default:
+            break;
+        }
+      });
+      this.initmap();
+    },
+    qColorEvent(val) {
+      console.log(val);
+      if (this.mapConfig.typeStyle.type.indexOf(3) !== -1) {
+      }
+      return "#fff";
     }
   }
 };
