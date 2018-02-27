@@ -19,7 +19,7 @@
       background-color: #f8f8f9;
       border-bottom: 1px solid #e9eaec;
       width: 33.3%;
-      line-height: 40px
+      line-height: 40px;
     }
   }
   #box {
@@ -74,16 +74,17 @@ export default {
       title: "报警事件列表",
       tableTitle: [],
       tableList: [],
-      leftdata:{}
+      leftdata: {}
     };
   },
-    computed: {
+  computed: {
     left1data() {
       return this.$store.default.state.pluginsData.warnEventList;
     }
   },
   watch: {
     left1data(val) {
+      this.doIt&&this.stopT();
       this.leftdata = val;
       this.getData();
     }
@@ -95,12 +96,12 @@ export default {
   methods: {
     getData() {
       var data = Filter.initialTolowerCase(this.leftdata);
-        this.tableTitle = data.tableTitle;
-        this.tableList = data.tableList;
-        this.$nextTick(() => {
-          // 在这里面去获取DOM
-          this.doIt = setInterval(this.scroll, 2000);
-        });
+      this.tableTitle = data.tableTitle;
+      this.tableList = data.tableList;
+      this.$nextTick(() => {
+        // 在这里面去获取DOM
+        this.doIt = setInterval(this.scroll, 2000);
+      });
     },
     scroll() {
       this.animate = true; // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true

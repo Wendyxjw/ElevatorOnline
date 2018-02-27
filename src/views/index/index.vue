@@ -100,13 +100,13 @@
       <div class="index-con  text-center box-bottom"> 
         <div class="check text-center text-large-white">
 
-              <CheckboxGroup v-model="checkval" size="large" class="text-center" @on-change="changeEvent()">
+              <CheckboxGroup v-model="wsParam.mapDataSelect" size="large" class="text-center" @on-change="changeEvent()">
                   <Checkbox label="电梯分布"></Checkbox>
                   <Checkbox label="维保单位"></Checkbox>
                   <Checkbox label="故障分布"></Checkbox>
               </CheckboxGroup>
             </div>
-            <p class="text-middle-white text-center">公司logo图标</p>
+            <p class="text-middle-white text-center">蛟驰科技</p>
           <div class="text-middle-white " >
             <!-- 1.维保率在85%以上绿色,60%-85%黄绿,60%以下黄色<br>
             2.故障点显示红色。<br>
@@ -147,7 +147,6 @@ export default {
   data() {
     return {
       name: "电梯物联网标题",
-      checkval: ["电梯分布"],
       ws: null,
       myChart: null,
       mapConfig: {
@@ -162,9 +161,15 @@ export default {
           type: [1]
         }
       },
-      topData:[],
-      indexData:{},
-      isShow:false
+      topData: [],
+      indexData: {},
+      isShow: false,
+      wsParam: {
+        mapZoom: 14,//地图缩放
+        mapDataSelect: ["电梯分布"],//标注类型
+        cityElevatorInfor: "全市"
+      },
+      res:{}
     };
   },
   components: {
@@ -179,33 +184,41 @@ export default {
     this.websocketEvent();
     this.getData();
     this.initmap();
+    this.$on("changeParam", this.onParamChange);
   },
   methods: {
     getData() {
       getindex().then(res => {
-        var data = Filter.initialTolowerCase(res);
+        this.res=res
+        this.formatData(res)
+      });
+    },
+    formatData(res){
+      var data = Filter.initialTolowerCase(res);
         this.$store.default.dispatch("getPluginsData", data);
         //debugger
-        for(let i in data.indexData){
-          var item=data.indexData[i];
-           if(i=='cityFaultIndex'){
-           item.text="全市故障指数";
-          }else if(i=='cityMaintenanceIndex'){
-           item.text="全市维保指数";
-          }else if(i=='residenceElevatorsNum'){
-           item.text="住宅电梯运行量";
-          }else if(i=='businessElevatorsNum'){
-           item.text="商业电梯运行量";
-          }else{
+        this.topData=[];
+        for (let i in data.indexData) {
+          var item = data.indexData[i];
+          if (i == "cityFaultIndex") {
+            item.text = "全市故障指数";
+          } else if (i == "cityMaintenanceIndex") {
+            item.text = "全市维保指数";
+          } else if (i == "residenceElevatorsNum") {
+            item.text = "住宅电梯运行量";
+          } else if (i == "businessElevatorsNum") {
+            item.text = "商业电梯运行量";
+          } else {
             continue;
           }
-          item.class=item.type=='up'?'arrow-up-a':'arrow-up-a';
+          item.class = item.type == "up" ? "arrow-up-a" : "arrow-up-a";
           this.topData.push(item);
         }
-        console.log(this.topData)
-        this.indexData=data.indexData;
-        this.isShow=true;
-      });
+        this.indexData = data.indexData;
+        this.mapConfig.data = this.indexData.map.data;
+        this.mapConfig.geoCoordMap = this.indexData.map.geoCoordMap;
+        this.isShow = true;
+        this.initmap();
     },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
@@ -517,50 +530,36 @@ export default {
       bmap.addEventListener("zoomend", (type, target) => {
         this.mapConfig.zoom = bmap.getZoom();
         this.mapConfig.center = [bmap.getCenter().lng, bmap.getCenter().lat];
-        this.ws.send(
-          JSON.stringify({
-            user: "lh123",
-            zoom: this.mapConfig.zoom,
-            center: this.mapConfig.center
-          })
-        );
+        this.$emit("changeParam",{mapZoom:this.mapConfig.zoom});
       });
       bmap.addEventListener("click", function(type) {
         return false;
       });
     },
     websocketEvent() {
-      this.ws = new WebSocket("wss://echo.websocket.org");
+      this.ws = new WebSocket("wss://echo.websocket.org");//ws:/117.50.27.64:86/webhiter
       this.ws.onopen = evt => {
         this.ws.send(
-          JSON.stringify({
-            user: "lh123",
-            zoom: this.mapConfig.zoom
-          })
+          JSON.stringify(this.wsParam)
         );
         // setInterval(() => {
         //   this.ws.send("北京时间：" + moment().format("YY-HH-dd hh:mm:ss"));
         // }, 1000);
       };
-
       this.ws.onmessage = evt => {
-        let obj = {
-          user: "lh123",
-          zoom: this.mapConfig.zoom,
-          center: this.mapConfig.center
-        };
-        this.mapConfig.data = this.indexData.map.data;
-          this.mapConfig.geoCoordMap = this.indexData.map.geoCoordMap;
-          this.initmap();
-
-        // this.ws.close();
+        console.log("getinfor")
+        this.formatData(this.res)//evt.data
       };
 
       this.ws.onclose = evt => {};
     },
+    onParamChange(data) {
+      this.wsParam=Object.assign(this.wsParam,data)
+      this.ws.send(JSON.stringify(this.wsParam));
+    },
     changeEvent() {
       this.mapConfig.typeStyle.type = [];
-      this.checkval.forEach(ele => {
+      this.wsParam.mapDataSelect.forEach(ele => {
         switch (ele) {
           case "电梯分布":
             this.mapConfig.typeStyle.type.push(1);
@@ -576,10 +575,9 @@ export default {
             break;
         }
       });
-      this.initmap();
+      this.$emit("changeParam");
     },
     qColorEvent(val) {
-      console.log(val);
       if (this.mapConfig.typeStyle.type.indexOf(3) !== -1) {
       }
       return "#fff";

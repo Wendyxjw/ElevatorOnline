@@ -64,7 +64,8 @@ export default {
     //   this.dataList  = Filter.initialTolowerCase(res);
     // },
     setSelect() {
-      console.log(this.selectVal);
+     // Filter.dispatch("changeParam",'{cityElevatorInfor:this.selectVal}')
+      this.$parent.$emit("changeParam",{cityElevatorInfor:this.selectVal})
     }
   }
 };

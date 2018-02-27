@@ -4,7 +4,7 @@ const Mock = require('mockjs')
 //地图请求数据 入参
 var param={
     mapZoom:14,//地图缩放等级
-    mapDataSelect:[1,2,3],// 电梯分布:1   维保单位:2   故障分布:3
+    mapDataSelect:[],// 电梯分布 维保单位  故障分布 
     cityElevatorInfor:"全市"//全市电梯总况
 
 }
