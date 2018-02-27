@@ -77,47 +77,21 @@
     <div class="chart-box">
       <!-- 底部地图 -->
       <div id="indexMap" class="charts"></div>
-      <div class="point index-con box-top">
+      <div class="point index-con box-top" v-if="isShow">
             <Row>
+              <Col span="5" v-for="item in topData">
+              <p class="text-center">
+                <span class="item text-large-white">{{item.num}}
+                  <Icon :type="item.class"></Icon>
+                  <span class="dot-text dot-text-top">{{item.rate}}</span>
+                </span>
+              </p>
+              <p class="text-middle-white text-center">{{item.text}}</p>
+              </Col>
+              
               <Col span="4">
-              <p class="text-center">
-                <span class="item text-large-white">0.8
-                  <Icon type="arrow-up-a"></Icon>
-                  <span class="dot-text dot-text-top">0.1</span>
-                </span>
-              </p>
-              <p class="text-middle-white text-center">全市故障指数</p>
-              </Col>
-              <Col span="4">
-              <p class="text-center">
-                <span class="item text-large-white">0.8
-                  <Icon type="arrow-up-a"></Icon>
-                  <span class="dot-text dot-text-bottom">0.1</span>
-                </span>
-              </p>
-              <p class="text-middle-white text-center">全市维保指数</p>
-              </Col>
-              <Col span="5">
-              <p class="text-center">
-                <span class="item text-large-white">0.8
-                  <Icon type="arrow-down-a"></Icon>
-                  <span class="dot-text dot-text-top">0.1</span>
-                </span>
-              </p>
-              <p class="text-middle-white text-center">住宅电梯运行量</p>
-              </Col>
-              <Col span="5">
-              <p class="text-center">
-                <span class="item text-large-white">0.8
-                  <Icon type="arrow-down-a"></Icon>
-                  <span class="dot-text dot-text-bottom">0.1</span>
-                </span>
-              </p>
-              <p class="text-middle-white text-center">商业电梯运行量</p>
-              </Col>
-              <Col span="6">
               <p class="text-center text-superlarge-blue">
-                2560
+                {{indexData.fifteenElevatorsNum.num}}
               </p>
               <p class="text-middle-white text-center">15年以上电梯运行量</p>
               </Col>
@@ -187,7 +161,10 @@ export default {
           bColorNomal: "#fff",
           type: [1]
         }
-      }
+      },
+      topData:[],
+      indexData:{},
+      isShow:false
     };
   },
   components: {
@@ -208,6 +185,26 @@ export default {
       getindex().then(res => {
         var data = Filter.initialTolowerCase(res);
         this.$store.default.dispatch("getPluginsData", data);
+        //debugger
+        for(let i in data.indexData){
+          var item=data.indexData[i];
+           if(i=='cityFaultIndex'){
+           item.text="全市故障指数";
+          }else if(i=='cityMaintenanceIndex'){
+           item.text="全市维保指数";
+          }else if(i=='residenceElevatorsNum'){
+           item.text="住宅电梯运行量";
+          }else if(i=='businessElevatorsNum'){
+           item.text="商业电梯运行量";
+          }else{
+            continue;
+          }
+          item.class=item.type=='up'?'arrow-up-a':'arrow-up-a';
+          this.topData.push(item);
+        }
+        console.log(this.topData)
+        this.indexData=data.indexData;
+        this.isShow=true;
       });
     },
     initmap() {
@@ -552,11 +549,9 @@ export default {
           zoom: this.mapConfig.zoom,
           center: this.mapConfig.center
         };
-        getMapData(obj).then(res => {
-          this.mapConfig.data = res.data;
-          this.mapConfig.geoCoordMap = res.geoCoordMap;
+        this.mapConfig.data = this.indexData.map.data;
+          this.mapConfig.geoCoordMap = this.indexData.map.geoCoordMap;
           this.initmap();
-        });
 
         // this.ws.close();
       };
