@@ -165,11 +165,11 @@ export default {
       indexData: {},
       isShow: false,
       wsParam: {
-        mapZoom: 14,//地图缩放
-        mapDataSelect: ["电梯分布"],//标注类型
+        mapZoom: 14, //地图缩放
+        mapDataSelect: ["电梯分布"], //标注类型
         cityElevatorInfor: "全市"
       },
-      res:{}
+      res: {}
     };
   },
   components: {
@@ -183,42 +183,42 @@ export default {
   mounted() {
     this.websocketEvent();
     this.getData();
-    this.initmap();
     this.$on("changeParam", this.onParamChange);
   },
   methods: {
     getData() {
       getindex().then(res => {
-        this.res=res
-        this.formatData(res)
+        this.res = res;
+        this.formatData(res);
       });
     },
-    formatData(res){
+    formatData(res) {
       var data = Filter.initialTolowerCase(res);
-        this.$store.default.dispatch("getPluginsData", data);
-        //debugger
-        this.topData=[];
-        for (let i in data.indexData) {
-          var item = data.indexData[i];
-          if (i == "cityFaultIndex") {
-            item.text = "全市故障指数";
-          } else if (i == "cityMaintenanceIndex") {
-            item.text = "全市维保指数";
-          } else if (i == "residenceElevatorsNum") {
-            item.text = "住宅电梯运行量";
-          } else if (i == "businessElevatorsNum") {
-            item.text = "商业电梯运行量";
-          } else {
-            continue;
-          }
-          item.class = item.type == "up" ? "arrow-up-a" : "arrow-up-a";
-          this.topData.push(item);
+      this.res=Object.assign(this.res,data);
+      this.$store.default.dispatch("getPluginsData", data);
+      //debugger
+      this.topData = [];
+      for (let i in this.res.indexData) {
+        var item = data.indexData[i];
+        if (i == "cityFaultIndex") {
+          item.text = "全市故障指数";
+        } else if (i == "cityMaintenanceIndex") {
+          item.text = "全市维保指数";
+        } else if (i == "residenceElevatorsNum") {
+          item.text = "住宅电梯运行量";
+        } else if (i == "businessElevatorsNum") {
+          item.text = "商业电梯运行量";
+        } else {
+          continue;
         }
-        this.indexData = data.indexData;
-        this.mapConfig.data = this.indexData.map.data;
-        this.mapConfig.geoCoordMap = this.indexData.map.geoCoordMap;
-        this.isShow = true;
-        this.initmap();
+        item.class = item.type == "up" ? "arrow-up-a" : "arrow-up-a";
+        this.topData.push(item);
+      }
+      this.indexData = this.res.indexData;
+      this.mapConfig.data = this.res.indexData.map.data;
+      this.mapConfig.geoCoordMap = this.res.indexData.map.geoCoordMap;
+      this.isShow = true;
+      this.initmap();
     },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
@@ -243,6 +243,9 @@ export default {
           type === 1 && this.mapConfig.typeStyle.type.indexOf(1) === -1
             ? []
             : dataList;
+        if (type === 3 && this.mapConfig.typeStyle.type.length === 0) {
+          dataList = [];
+        }
         for (let i = 0; i < dataList.length; i++) {
           let geoCoord = this.mapConfig.geoCoordMap[dataList[i].name];
           if (geoCoord) {
@@ -470,7 +473,7 @@ export default {
             name: "Top", //底部
             type: "effectScatter",
             coordinateSystem: "bmap",
-            data: convertData(_this.mapConfig.data),
+            data: convertData(_this.mapConfig.data, 3),
             symbolSize: function(val) {
               let size =
                 _this.mapConfig.typeStyle.type.indexOf(2) !== -1
@@ -530,31 +533,31 @@ export default {
       bmap.addEventListener("zoomend", (type, target) => {
         this.mapConfig.zoom = bmap.getZoom();
         this.mapConfig.center = [bmap.getCenter().lng, bmap.getCenter().lat];
-        this.$emit("changeParam",{mapZoom:this.mapConfig.zoom});
+        this.$emit("changeParam", { mapZoom: this.mapConfig.zoom });
       });
       bmap.addEventListener("click", function(type) {
         return false;
       });
     },
     websocketEvent() {
-      this.ws = new WebSocket("wss://echo.websocket.org");//ws:/117.50.27.64:86/webhiter
+     this.ws = new WebSocket("wss://echo.websocket.org");
+      //this.ws = new WebSocket("ws://117.50.27.64:86/webhiter"); 
       this.ws.onopen = evt => {
-        this.ws.send(
-          JSON.stringify(this.wsParam)
-        );
+        this.ws.send(JSON.stringify(this.wsParam));
         // setInterval(() => {
         //   this.ws.send("北京时间：" + moment().format("YY-HH-dd hh:mm:ss"));
         // }, 1000);
       };
       this.ws.onmessage = evt => {
-        console.log("getinfor")
-        this.formatData(this.res)//evt.data
+        console.log(evt.data);
+        //this.formatData(JSON.parse(evt.data))
+        this.formatData(this.res); //evt.data
       };
 
       this.ws.onclose = evt => {};
     },
     onParamChange(data) {
-      this.wsParam=Object.assign(this.wsParam,data)
+      this.wsParam = Object.assign(this.wsParam, data);
       this.ws.send(JSON.stringify(this.wsParam));
     },
     changeEvent() {
