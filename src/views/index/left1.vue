@@ -76,7 +76,7 @@ export default {
     getData() {
       var data = this.leftdata;
       //动态插入video 直接插入渲染有问题
-      this.videoSrc = data.videoSrc;
+      this.videoSrc = data.videoSrc||"";
       // autoplay="autoplay"  loop="loop"
       var _dom =
         `

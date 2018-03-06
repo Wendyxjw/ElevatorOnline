@@ -153,7 +153,7 @@ export default {
         zoom: 12,
         center: [121.628572, 29.866033],
         data: [],
-        geoCoordMap: [],
+        geoCoordMap: {},
         typeStyle: {
           qColorNomal: "blue",
           qColorError: "red",
@@ -182,7 +182,7 @@ export default {
   },
   mounted() {
     this.websocketEvent();
-    this.getData();
+    //this.getData();
     this.$on("changeParam", this.onParamChange);
   },
   methods: {
@@ -195,7 +195,7 @@ export default {
     formatData(res) {
       var data = Filter.initialTolowerCase(res);
       this.res=Object.assign(this.res,data);
-      this.$store.default.dispatch("getPluginsData", data);
+      this.$store.default.dispatch("getPluginsData", this.res);
       //debugger
       this.topData = [];
       for (let i in this.res.indexData) {
@@ -211,12 +211,12 @@ export default {
         } else {
           continue;
         }
-        item.class = item.type == "up" ? "arrow-up-a" : "arrow-up-a";
+        item.class = item.type == "up" ? "arrow-up-a" : "arrow-down-a";
         this.topData.push(item);
       }
       this.indexData = this.res.indexData;
-      this.mapConfig.data = this.res.indexData.map.data;
-      this.mapConfig.geoCoordMap = this.res.indexData.map.geoCoordMap;
+      this.mapConfig.data = this.res.map.data;
+      this.mapConfig.geoCoordMap = this.res.map.geoCoordMap;
       this.isShow = true;
       this.initmap();
     },
@@ -540,8 +540,8 @@ export default {
       });
     },
     websocketEvent() {
-     this.ws = new WebSocket("wss://echo.websocket.org");
-      //this.ws = new WebSocket("ws://117.50.27.64:86/webhiter"); 
+     //this.ws = new WebSocket("wss://echo.websocket.org");
+      this.ws = new WebSocket("ws://117.50.27.64:86/webhiter"); 
       this.ws.onopen = evt => {
         this.ws.send(JSON.stringify(this.wsParam));
         // setInterval(() => {
@@ -550,8 +550,8 @@ export default {
       };
       this.ws.onmessage = evt => {
         console.log(evt.data);
-        //this.formatData(JSON.parse(evt.data))
-        this.formatData(this.res); //evt.data
+        this.formatData(eval('('+ evt.data+')'))
+        //this.formatData(this.res); //evt.data
       };
 
       this.ws.onclose = evt => {};

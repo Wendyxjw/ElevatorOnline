@@ -2,10 +2,10 @@
 const Mock = require('mockjs')
 //前端使用mockjs模拟数据
 //地图请求数据 入参
-var param={
-    mapZoom:14,//地图缩放等级
-    mapDataSelect:[],// 电梯分布 维保单位  故障分布 
-    cityElevatorInfor:"全市"//全市电梯总况
+var param = {
+    mapZoom: 14, //地图缩放等级
+    mapDataSelect: [], // 电梯分布 维保单位  故障分布 
+    cityElevatorInfor: "全市" //全市电梯总况
 
 }
 
@@ -20,81 +20,82 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
             //首页底部地图
             indexData: {
                 //全市故障指数
-                cityFaultIndex:{
-                    num:0.8,
-                    type:"down",//上升还是下降
-                    rate:0.1//上升还是下降的指数
+                cityFaultIndex: {
+                    num: 0.8,
+                    type: "down", //上升还是下降
+                    rate: 0.1 //上升还是下降的指数
                 },
                 //全市维保指数
-                cityMaintenanceIndex:{
-                    num:0.8,
-                    type:"up",
-                    rate:0.1
+                cityMaintenanceIndex: {
+                    num: 0.8,
+                    type: "up",
+                    rate: 0.1
                 },
                 //住宅电梯运行量
-                residenceElevatorsNum:{
-                    num:0.8,
-                    type:"up",
-                    rate:0.1
+                residenceElevatorsNum: {
+                    num: 0.8,
+                    type: "up",
+                    rate: 0.1
                 },
                 //商业电梯运行量
-                businessElevatorsNum:{
-                    num:0.8,
-                    type:"up",
-                    rate:0.1
+                businessElevatorsNum: {
+                    num: 0.8,
+                    type: "up",
+                    rate: 0.1
                 },
                 //15年以上电梯运行量
-                fifteenElevatorsNum:{
-                    num:2500
-                },
-                map:{
-                    //位置参数
-                    data: [{
-                            name: "月湖公园",
-                            value: 0.88, //百分比
-                            num: 10, //数量
-                            isError: false, //是否故障
-                        },
-                        {
-                            name: "宁波东站",
-                            value: 0.38,
-                            num: 5,
-                            isError: true, //是否故障
-                        },
-                        {
-                            name: "宁波体育中心",
-                            value: 0.95,
-                            num: 1,
-                            isError: false, //是否故障
-                        },
-                        {
-                            name: "科技公园",
-                            value: 0.6,
-                            num: 4,
-                            isError: true, //是否故障
-                        },
-                        {
-                            name: "四安文化乐园",
-                            value: 0.5,
-                            num: 20,
-                            isError: false, //是否故障
-                        },
-                        {
-                            name: "体育馆",
-                            value: 1.0,
-                            num: 30,
-                            isError: true, //是否故障
-                        }
-                    ],
-                    //地图坐标
-                    geoCoordMap: {
-                        月湖公园: [121.549234, 29.874051], //名称、坐标
-                        宁波东站: [121.591921, 29.854131],
-                        宁波体育中心: [121.588328, 29.877307],
-                        科技公园: [121.637771, 29.880564],
-                        四安文化乐园: [121.681177, 29.848743],
-                        体育馆: [121.612762, 29.918887]
+                fifteenElevatorsNum: {
+                    num: 2500
+                }
+            },
+            //底部地图
+            map: {
+                //位置参数
+                data: [{
+                        name: "月湖公园",
+                        value: 0.88, //百分比
+                        num: 10, //数量
+                        isError: false, //是否故障
+                    },
+                    {
+                        name: "宁波东站",
+                        value: 0.38,
+                        num: 5,
+                        isError: true, //是否故障
+                    },
+                    {
+                        name: "宁波体育中心",
+                        value: 0.95,
+                        num: 1,
+                        isError: false, //是否故障
+                    },
+                    {
+                        name: "科技公园",
+                        value: 0.6,
+                        num: 4,
+                        isError: true, //是否故障
+                    },
+                    {
+                        name: "四安文化乐园",
+                        value: 0.5,
+                        num: 20,
+                        isError: false, //是否故障
+                    },
+                    {
+                        name: "体育馆",
+                        value: 1.0,
+                        num: 30,
+                        isError: true, //是否故障
                     }
+                ],
+                //地图坐标
+                geoCoordMap: {
+                    月湖公园: [121.549234, 29.874051], //名称、坐标
+                    宁波东站: [121.591921, 29.854131],
+                    宁波体育中心: [121.588328, 29.877307],
+                    科技公园: [121.637771, 29.880564],
+                    四安文化乐园: [121.681177, 29.848743],
+                    体育馆: [121.612762, 29.918887]
                 }
             },
             //左1
@@ -253,74 +254,72 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
             trend: {
                 chart1: {
                     //x轴坐标文案
-                    xText:["电梯1","电梯2","电梯3","电梯4","电梯5"],
-                    list:[{
-                        name: "Forest",
-                        data: [320, 332, 301, 334, 390]
-                    },
-                    {
-                        name: "Steppe",
-                        data: [220, 182, 191, 234, 290]
-                    },
-                    {
-                        name: "Desert",
-                        data: [150, 232, 201, 154, 190]
-                    },
-                    {
-                        name: "Wetland",
-                        data: [98, 77, 101, 99, 40]
-                    }
+                    xText: ["电梯1", "电梯2", "电梯3", "电梯4", "电梯5"],
+                    list: [{
+                            name: "Forest",
+                            data: [320, 332, 301, 334, 390]
+                        },
+                        {
+                            name: "Steppe",
+                            data: [220, 182, 191, 234, 290]
+                        },
+                        {
+                            name: "Desert",
+                            data: [150, 232, 201, 154, 190]
+                        },
+                        {
+                            name: "Wetland",
+                            data: [98, 77, 101, 99, 40]
+                        }
                     ]
                 },
-                chart2:{
-                    xText:["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-                    list:[
-                        {
-                          name: "邮件营销",
-                          data: [120, 132, 101, 134, 90, 230, 210]
-                        },
-                        {
-                          name: "联盟广告",
-                          data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                          name: "视频广告",
-                          data: [150, 232, 201, 154, 190, 330, 410]
-                        },
-                        {
-                          name: "直接访问",
-                          data: [320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                          name: "搜索引擎",
-                          data: [820, 932, 901, 934, 1290, 1330, 1320]
-                        }
-                      ]
-                },
-                chart3:{
+                chart2: {
                     xText: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-                    list:[
-                        {
-                          name: "邮件营销",
-                          data: [120, 132, 101, 134, 90, 230, 210]
+                    list: [{
+                            name: "邮件营销",
+                            data: [120, 132, 101, 134, 90, 230, 210]
                         },
                         {
-                          name: "联盟广告",
-                          data: [220, 182, 191, 234, 290, 330, 310]
+                            name: "联盟广告",
+                            data: [220, 182, 191, 234, 290, 330, 310]
                         },
                         {
-                          name: "视频广告",
-                          data: [150, 232, 201, 154, 190, 330, 410]
+                            name: "视频广告",
+                            data: [150, 232, 201, 154, 190, 330, 410]
                         },
                         {
-                          name: "直接访问",
-                          data: [320, 332, 301, 334, 390, 330, 320]
+                            name: "直接访问",
+                            data: [320, 332, 301, 334, 390, 330, 320]
                         },
                         {
-                          name: "搜索引擎",
-                          data: [820, 932, 901, 934, 1290, 1330, 1320]
+                            name: "搜索引擎",
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
                         }
-                      ]
+                    ]
+                },
+                chart3: {
+                    xText: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                    list: [{
+                            name: "邮件营销",
+                            data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: "联盟广告",
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: "视频广告",
+                            data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                            name: "直接访问",
+                            data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: "搜索引擎",
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
+                    ]
                 }
             }
 
