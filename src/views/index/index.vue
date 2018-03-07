@@ -11,7 +11,7 @@
   height: 100%;
 }
 .home {
-  background-color: #4f4fb9;
+  background-color: #18579a;
   position: absolute;
   left: 0;
   right: 0;
@@ -194,7 +194,7 @@ export default {
     },
     formatData(res) {
       var data = Filter.initialTolowerCase(res);
-      this.res=Object.assign(this.res,data);
+      this.res = Object.assign(this.res, data);
       this.$store.default.dispatch("getPluginsData", this.res);
       //debugger
       this.topData = [];
@@ -214,11 +214,15 @@ export default {
         item.class = item.type == "up" ? "arrow-up-a" : "arrow-down-a";
         this.topData.push(item);
       }
+
       this.indexData = this.res.indexData;
-      this.mapConfig.data = this.res.map.data;
-      this.mapConfig.geoCoordMap = this.res.map.geoCoordMap;
+      if (data.map) {
+        this.mapConfig.data = this.res.map.data;
+        this.mapConfig.geoCoordMap = this.res.map.geoCoordMap;
+        this.initmap();
+      }
+
       this.isShow = true;
-      this.initmap();
     },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
@@ -540,8 +544,8 @@ export default {
       });
     },
     websocketEvent() {
-     //this.ws = new WebSocket("wss://echo.websocket.org");
-      this.ws = new WebSocket("ws://117.50.27.64:86/webhiter"); 
+      //this.ws = new WebSocket("wss://echo.websocket.org");
+      this.ws = new WebSocket("ws://117.50.27.64:86/webhiter");
       this.ws.onopen = evt => {
         this.ws.send(JSON.stringify(this.wsParam));
         // setInterval(() => {
@@ -550,7 +554,7 @@ export default {
       };
       this.ws.onmessage = evt => {
         console.log(evt.data);
-        this.formatData(eval('('+ evt.data+')'))
+        this.formatData(eval("(" + evt.data + ")"));
         //this.formatData(this.res); //evt.data
       };
 
