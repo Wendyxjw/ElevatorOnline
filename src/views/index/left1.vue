@@ -76,19 +76,21 @@ export default {
     getData() {
       var data = this.leftdata;
       //动态插入video 直接插入渲染有问题
-      this.videoSrc = data.videoSrc||"";
+      this.videoSrc = data.videoSrc || "";
       // autoplay="autoplay"  loop="loop"
-      var _dom =
-        `
+      if (this.videoSrc) {
+        var _dom =
+          `
                 <video  width="100%" height="100%" autoplay="autoplay" controls="controls">
             
             <source src="` +
-        this.videoSrc +
-        `" type="video/mp4">
+          this.videoSrc +
+          `" type="video/mp4">
            你的浏览器暂不支持视频播放！
           </video>`;
-      var element = $("#myvideo");
-      element.html(_dom);
+        var element = $("#myvideo");
+        element.html(_dom);
+      }
 
       var listData = {};
       for (let i in data.list) {
