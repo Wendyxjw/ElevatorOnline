@@ -83,7 +83,7 @@
               <p class="text-center">
                 <span class="item text-large-white">{{item.num}}
                   <Icon :type="item.class"></Icon>
-                  <span class="dot-text dot-text-top">{{item.rate}}</span>
+                  <span :class="[item.type=='up'? 'dot-text-top' : 'dot-text-bottom', 'dot-text']" >{{item.rate}}</span>
                 </span>
               </p>
               <p class="text-middle-white text-center">{{item.text}}</p>
@@ -193,13 +193,13 @@ export default {
       });
     },
     formatData(res) {
-      var data = Filter.initialTolowerCase(res);
+      var data = Filter.initialTolowerCase(res.data);
       this.res = Object.assign(this.res, data);
       this.$store.default.dispatch("getPluginsData", this.res);
       //debugger
       this.topData = [];
       for (let i in this.res.indexData) {
-        var item = data.indexData[i];
+        var item = this.res.indexData[i];
         if (i == "cityFaultIndex") {
           item.text = "全市故障指数";
         } else if (i == "cityMaintenanceIndex") {
@@ -553,6 +553,7 @@ export default {
         // }, 1000);
       };
       this.ws.onmessage = evt => {
+        //debugger;
         console.log(evt.data);
         this.formatData(eval("(" + evt.data + ")"));
         //this.formatData(this.res); //evt.data
