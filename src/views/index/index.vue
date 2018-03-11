@@ -554,8 +554,16 @@ export default {
       };
       this.ws.onmessage = evt => {
         //debugger;
-        console.log(evt.data);
-        this.formatData(eval("(" + evt.data + ")"));
+        // console.log(evt.data);
+        try {
+          var wsres = eval("(" + evt.data + ")");
+          if (wsres.success) {
+            this.formatData(wsres);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+
         //this.formatData(this.res); //evt.data
       };
 
