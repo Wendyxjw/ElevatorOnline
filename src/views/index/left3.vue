@@ -136,7 +136,8 @@ export default {
         actualData: [],
         rateData: []
       },
-      leftdata:{}
+      leftdata: {},
+      oldmapCenter: "" //记录地图中心 值改变时在初始化地图
     };
   },
   computed: {
@@ -156,26 +157,25 @@ export default {
   methods: {
     getData() {
       this.number = Filter.initialTolowerCase(this.leftdata);
+      this.number.timeRate = parseFloat(
+        (this.number.practicalTime / this.number.planningTime * 100).toFixed(2)
+      );
+      if (this.number.timeRate > 100) {
         this.number.timeRate = parseFloat(
-          (this.number.practicalTime / this.number.planningTime * 100).toFixed(
+          (this.number.planningTime / this.number.practicalTime * 100).toFixed(
             2
           )
         );
-        if (this.number.timeRate > 100) {
-          this.number.timeRate = parseFloat(
-            (
-              this.number.planningTime /
-              this.number.practicalTime *
-              100
-            ).toFixed(2)
-          );
-          this.number.practicalTime = "100%";
-          this.number.planningTime = this.number.timeRate + "%";
-        } else {
-          this.number.planningTime = "100%";
-          this.number.practicalTime = this.number.timeRate + "%";
-        }
+        this.number.practicalTime = "100%";
+        this.number.planningTime = this.number.timeRate + "%";
+      } else {
+        this.number.planningTime = "100%";
+        this.number.practicalTime = this.number.timeRate + "%";
+      }
+      if (this.oldmapCenter != this.number.mapCenter) {
         this.initMap();
+        this.oldmapCenter = this.number.mapCenter;
+      }
     },
     leftmodalShow() {
       this.leftmodal1 = true;
