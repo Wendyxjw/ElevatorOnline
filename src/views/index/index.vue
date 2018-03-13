@@ -81,9 +81,9 @@
             <Row>
               <Col span="5" v-for="item in topData">
               <p class="text-center">
-                <span class="item text-large-white" :style="{color:item.type=='up'? '#09cc09' : 'red'}">{{item.num}}
-                  <Icon :type="item.class"></Icon>
-                  <span :class="[item.type=='up'? 'dot-text-top' : 'dot-text-bottom', 'dot-text']" :style="{color:item.type=='up'? '#09cc09' : 'red'}">{{item.rate}}</span>
+                <span class="item text-large-white" >{{item.num}}
+                  <Icon :type="item.class" :style="{color:item.color}"></Icon>
+                  <span :class="[item.type=='up'? 'dot-text-top' : 'dot-text-bottom', 'dot-text']" >{{item.rate}}</span>
                 </span>
               </p>
               <p class="text-middle-white text-center">{{item.text}}</p>
@@ -202,12 +202,16 @@ export default {
         var item = this.res.indexData[i];
         if (i == "cityFaultIndex") {
           item.text = "全市故障指数";
+          item.color = item.type != "up" ? "#09cc09" : "red";
         } else if (i == "cityMaintenanceIndex") {
           item.text = "全市维保指数";
+          item.color = item.type != "up" ? "#09cc09" : "red";
         } else if (i == "residenceElevatorsNum") {
           item.text = "住宅电梯运行量";
+          item.color = item.type == "up" ? "#09cc09" : "red";
         } else if (i == "businessElevatorsNum") {
           item.text = "商业电梯运行量";
+          item.color = item.type == "up" ? "#09cc09" : "red";
         } else {
           continue;
         }
