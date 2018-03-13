@@ -220,10 +220,16 @@ export default {
       }
 
       this.indexData = this.res.indexData;
+
       if (data.map) {
         this.mapConfig.data = this.res.map.data;
-        this.mapConfig.geoCoordMap = this.res.map.geoCoordMap;
-        this.mapConfig.center = this.getmapCenter(data.map.geoCoordMap);
+        var geoCoordMap = {};
+        for (let j in this.res.map.data) {
+          let item = this.res.map.data[j];
+          geoCoordMap[item.name] = item.xys;
+        }
+        this.mapConfig.geoCoordMap = geoCoordMap;
+        this.mapConfig.center = this.getmapCenter(this.mapConfig.geoCoordMap);
         this.initmap();
       }
 
@@ -231,7 +237,6 @@ export default {
     },
     getmapCenter(map) {
       for (let i in map) {
-        console.log(map[i]);
         return map[i];
       }
     },
