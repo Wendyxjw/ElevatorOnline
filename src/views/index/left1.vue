@@ -53,7 +53,7 @@ export default {
       chart1: {},
       chart2: {},
       chart3: {},
-      videoSrc: "",
+      oldVideoSrc: "",
       leftdata: ""
     };
   },
@@ -76,15 +76,15 @@ export default {
     getData() {
       var data = this.leftdata;
       //动态插入video 直接插入渲染有问题
-      this.videoSrc = data.videoSrc || "";
       // autoplay="autoplay"  loop="loop"
-      if (this.videoSrc) {
+      if (this.oldVideoSrc != data.videoSrc) {
+        this.oldVideoSrc = data.videoSrc;
         var _dom =
           `
-                <video  width="100%" height="100%" autoplay="autoplay" controls="controls">
+                <video  width="100%" height="100%" autoplay="autoplay" loop="loop" controls="controls">
             
             <source src="` +
-          this.videoSrc +
+          data.videoSrc +
           `" type="video/mp4">
            你的浏览器暂不支持视频播放！
           </video>`;

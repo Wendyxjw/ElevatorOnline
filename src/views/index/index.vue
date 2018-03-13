@@ -81,9 +81,9 @@
             <Row>
               <Col span="5" v-for="item in topData">
               <p class="text-center">
-                <span class="item text-large-white">{{item.num}}
+                <span class="item text-large-white" :style="{color:item.type=='up'? '#09cc09' : 'red'}">{{item.num}}
                   <Icon :type="item.class"></Icon>
-                  <span :class="[item.type=='up'? 'dot-text-top' : 'dot-text-bottom', 'dot-text']" >{{item.rate}}</span>
+                  <span :class="[item.type=='up'? 'dot-text-top' : 'dot-text-bottom', 'dot-text']" :style="{color:item.type=='up'? '#09cc09' : 'red'}">{{item.rate}}</span>
                 </span>
               </p>
               <p class="text-middle-white text-center">{{item.text}}</p>
@@ -219,10 +219,17 @@ export default {
       if (data.map) {
         this.mapConfig.data = this.res.map.data;
         this.mapConfig.geoCoordMap = this.res.map.geoCoordMap;
+        this.mapConfig.center = this.getmapCenter(data.map.geoCoordMap);
         this.initmap();
       }
 
       this.isShow = true;
+    },
+    getmapCenter(map) {
+      for (let i in map) {
+        console.log(map[i]);
+        return map[i];
+      }
     },
     initmap() {
       this.myChart = echarts.init(document.getElementById("indexMap"));
@@ -591,7 +598,8 @@ export default {
             break;
         }
       });
-      this.$emit("changeParam");
+      this.initmap();
+      //this.$emit("changeParam");
     },
     qColorEvent(val) {
       if (this.mapConfig.typeStyle.type.indexOf(3) !== -1) {
