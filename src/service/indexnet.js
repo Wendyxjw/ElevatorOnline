@@ -76,4 +76,12 @@ module.exports = {
     getElevatorMonitoring(obj) {
         return axios.post("/api/index/ElevatorMonitoring", obj)
     },
+    //获取电梯运行信息
+    getElevatorInfo(obj) {
+        return axios.post("/api/index/ElevatorInfo", obj)
+    },
+    //获取电梯故障实时进展
+    getTheFault(obj) {
+        return axios.post("/api/index/TheFault", obj)
+    },
 }

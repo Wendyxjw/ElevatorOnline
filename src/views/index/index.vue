@@ -425,8 +425,8 @@ export default {
       },
       res: {},
       indexmapModal: true,
-      elevatorInfoModal: true,
-      theFaultModal: true,
+      elevatorInfoModal: false,
+      theFaultModal: false,
       tableTitle: [
         {
           title: "电梯编号",

@@ -588,3 +588,311 @@ Mock.mock('/api/index/MapData', 'post', (req, res) => {
         ErrorCode: 0
     }
 })
+//电梯运行信息
+Mock.mock('/api/index/ElevatorInfo', 'post', (req, res) => {
+    return {
+        Status: true,
+        Data: {
+            stateData: {
+                //电梯状态
+            },
+            errorData: {
+                //电梯错误信息
+                tableTitle: [{
+                        title: "序号",
+                        key: "id"
+                    },
+                    {
+                        title: "告警时间",
+                        key: "time"
+                    },
+                    {
+                        title: "事故类型",
+                        key: "eventType"
+                    },
+                    {
+                        title: "故障描述",
+                        key: "errorDesc"
+                    },
+                    {
+                        title: "处理阶段",
+                        key: "phase"
+                    },
+                    {
+                        title: "状态",
+                        key: "state"
+                    },
+                ],
+                tableList: [{
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 4,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 5,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 6,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 7,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 8,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 9,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 10,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 11,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    }
+                ]
+            },
+            basicData: {
+                //电梯基本信息
+                tableTitle: [{
+                        title: "",
+                        key: "name1",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "value1",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "name2",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "value2",
+                        align: "center"
+                    }
+                ],
+                tableList: [{
+                        name1: "电梯注册编号：",
+                        value1: 3303872299118,
+                        name2: "电梯救援识别码:",
+                        value2: null
+                    },
+                    {
+                        name1: "电梯安装地址：",
+                        value1: "天蓝心广场-1",
+                        name2: "所在区域:",
+                        value2: "天蓝心广场"
+                    },
+                    {
+                        name1: "电梯所在省市县（区）：",
+                        value1: "柯桥区",
+                        name2: "电梯类型:",
+                        value2: "乘客电梯"
+                    },
+                    {
+                        name1: "电梯品牌：",
+                        value1: "",
+                        name2: "电梯型号:",
+                        value2: ""
+                    },
+                    {
+                        name1: "使用单位：",
+                        value1: "绍兴市华联物业有限公司（天蓝心广场-1）",
+                        name2: "电梯维保单位:",
+                        value2: "绍兴市华联物业有限公司"
+                    },
+                    {
+                        name1: "制造单位：",
+                        value1: "",
+                        name2: "电梯安装单位:",
+                        value2: ""
+                    },
+                    {
+                        name1: "电梯地址：",
+                        value1: "",
+                        name2: "电梯使用状态:",
+                        value2: "正常"
+                    }
+                ]
+            }
+        },
+        ErrorMessage: "",
+        ErrorCode: 0
+    }
+})
+//故障实时进展
+Mock.mock('/api/index/TheFault', 'post', (req, res) => {
+    return {
+        Status: true,
+        Data: {
+            reportData: {
+                errorType: "困人",
+                errorSource: "电话保修",
+                applyPerson: "LLL",
+                phone: "13812345678",
+                applyDate: "2015-2-12 19:23",
+                errorDesc: "十年生死两茫茫，不思量，自难忘。"
+            },
+            repairDataList: [{
+                    tabName: "张三",
+                    timeDataList: [{
+                            time: "20:10",
+                            type: "text",
+                            title: "报修",
+                            timeDifference: "3分"
+                        },
+                        {
+                            time: "20:13",
+                            type: "text",
+                            title: "自动派单",
+                            timeDifference: "4分"
+                        },
+                        {
+                            time: "20:17",
+                            type: "text",
+                            title: "自动派单成功自动派单成功",
+                            timeDifference: "3分",
+                            infoList: [{
+                                    name: "维修人",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "联系方式",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "出发时间",
+                                    value: "2015-2-12 20:12"
+                                },
+                                {
+                                    name: "到达时间",
+                                    value: "2015-2-12 20:24"
+                                }
+                            ]
+                        },
+                        {
+                            time: "20:20",
+                            type: "text",
+                            title: "报修",
+                            timeDifference: "",
+                            infoList: [{
+                                    name: "维修人",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "联系方式",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "出发时间",
+                                    value: "2015-2-12 20:12"
+                                },
+                                {
+                                    name: "到达时间",
+                                    value: "2015-2-12 20:24"
+                                }
+                            ]
+                        },
+                        {
+                            time: "20:13",
+                            type: "detail",
+                            title: "自动派单",
+                            timeDifference: "4分"
+                        },
+                        {
+                            time: "20:11",
+                            type: "img",
+                            title: "报修",
+                            timeDifference: "",
+                            imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
+                        }
+                    ]
+                },
+                {
+                    tabName: "李四",
+                    timeDataList: [{
+                        time: "20:11",
+                        type: "img",
+                        title: "报修",
+                        timeDifference: "",
+                        imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
+                    }]
+                },
+                {
+                    tabName: "哈哈哈",
+                    timeDataList: [{
+                        time: "20:13",
+                        type: "text"
+                    }]
+                }
+            ]
+        },
+        ErrorMessage: "",
+        ErrorCode: 0
+    }
+})
