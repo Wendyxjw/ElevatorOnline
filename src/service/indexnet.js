@@ -68,8 +68,12 @@ module.exports = {
         return axios.post("/api/index/MapData", obj)
     },
     ///api/index/Getindex
-    getindex(){
+    getindex() {
         return axios.get("/api/index/Getindex")
 
-    }
+    },
+    //获取电梯监控情况
+    getElevatorMonitoring(obj) {
+        return axios.post("/api/index/ElevatorMonitoring", obj)
+    },
 }

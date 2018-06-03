@@ -89,7 +89,7 @@ export default {
            你的浏览器暂不支持视频播放！
           </video>`;
         var element = $("#myvideo");
-        element.html(_dom);
+        //element.html(_dom);
       }
 
       var listData = {};

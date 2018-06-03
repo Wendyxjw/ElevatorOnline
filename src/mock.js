@@ -54,14 +54,30 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                 data: [{
                         name: "月湖公园",
                         value: 0.88, //百分比
-                        num: 10, //数量
+                        num: 11, //数量
                         isError: false, //是否故障
+                        xys: [121.549234, 29.874051], //坐标
+                        table: [{
+                            SNo: 1, //电梯编号
+                            Code: "", //所属区域
+                            AD: "", //详细地址
+                            eventInfor: "", //事件信息
+                            isTrapped: 1, //是否困人：1 是 ，0 否
+                            alarmTel: 13412341234, //报警电话
+                            state: "", //状态
+                            resoult: "" //处理结果
+
+                        }]
                     },
                     {
                         name: "宁波东站",
                         value: 0.38,
-                        num: 5,
+                        num: 1,
                         isError: true, //是否故障
+                        table: [{
+                            title: "电梯编号", //标题
+                            value: "123" // 具体内容
+                        }]
                     },
                     {
                         name: "宁波体育中心",
@@ -345,6 +361,9 @@ Mock.mock('/api/index/DayHandleDetail', 'post', (req, res) => {
         Data: {
             //信息来源
             sourceInfor: [{
+                    value: "全部来源",
+                    label: "全部来源"
+                }, {
                     value: "物业",
                     label: "物业"
                 },
@@ -359,6 +378,10 @@ Mock.mock('/api/index/DayHandleDetail', 'post', (req, res) => {
             ],
             //处理状态
             handelStatus: [{
+                    value: "全部状态",
+                    label: "全部状态"
+                },
+                {
                     value: "待响应",
                     label: "待响应"
                 },
@@ -373,43 +396,71 @@ Mock.mock('/api/index/DayHandleDetail', 'post', (req, res) => {
             ],
             //表头
             tableTitle: [{
-                    title: "Name",
-                    key: "name"
+                    title: "序号",
+                    key: "id"
                 },
                 {
-                    title: "Age",
-                    key: "age"
+                    title: "区域",
+                    key: "district"
                 },
                 {
-                    title: "Address",
-                    key: "address"
+                    title: "注册代码",
+                    key: "registerCode"
+                },
+                {
+                    title: "故障代码",
+                    key: "errorCode"
+                },
+                {
+                    title: "故障说明",
+                    key: "errorDesc"
+                },
+                {
+                    title: "故障时间",
+                    key: "errorDate"
+                },
+                {
+                    title: "故障状态",
+                    key: "errorState"
                 }
             ],
             //列表内容
             tableList: [{
-                    name: "John Brown",
-                    age: 18,
-                    address: "New York No. 1 Lake Park",
-                    date: "2016-10-03"
+                    id: 123,
+                    district: '宁波',
+                    registerCode: 1234567899082,
+                    errorCode: 112,
+                    errorDesc: '电梯门打不开',
+                    errorDate: '2018-5-28',
+                    errorState: '已派单',
                 },
                 {
-                    name: "Jim Green",
-                    age: 24,
-                    address: "London No. 1 Lake Park",
-                    date: "2016-10-01"
+                    id: 124,
+                    district: '杭州',
+                    registerCode: 234367456456,
+                    errorCode: 123,
+                    errorDesc: '电梯门打不开',
+                    errorDate: '2018-5-18',
+                    errorState: '已完成',
                 },
                 {
-                    name: "Joe Black",
-                    age: 30,
-                    address: "Sydney No. 1 Lake Park",
-                    date: "2016-10-02"
+                    id: 1223,
+                    district: '上海',
+                    registerCode: 23426743245,
+                    errorCode: 114,
+                    errorDesc: '电梯没空调',
+                    errorDate: '2018-5-31',
+                    errorState: '已派单',
                 },
                 {
-                    name: "Jon Snow",
-                    age: 26,
-                    address: "Ottawa No. 2 Lake Park",
-                    date: "2016-10-04"
-                }
+                    id: 6123,
+                    district: '重庆',
+                    registerCode: 12465335345,
+                    errorCode: 151,
+                    errorDesc: '电梯没反应',
+                    errorDate: '2018-5-29',
+                    errorState: '已派单',
+                },
             ],
             //共有几条数据
             pageTotle: 100

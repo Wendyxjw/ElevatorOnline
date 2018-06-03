@@ -39,7 +39,7 @@ import { getDayHandleDetail } from "../../service/indexnet.js";
 export default {
   data() {
     return {
-      title: "电梯物联网标题",
+      title: "当日报警列表",
       disabledGroup: "维保单位",
       inforList: [],
       handelList: [],
@@ -68,13 +68,13 @@ export default {
         this.tableTitle = data.tableTitle;
         this.tableList = data.tableList;
         this.pageTotle = data.pageTotle;
-        this.param.pageIndex+=1;
+        this.param.pageIndex += 1;
       });
     },
-    selectData(){
+    selectData() {
       //筛选数据时 页数置为1
-      this.param.pageIndex=0;
-      this.getData()
+      this.param.pageIndex = 0;
+      this.getData();
     }
   }
 };

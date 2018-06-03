@@ -198,7 +198,7 @@ export default {
           }
         },
         legend: {
-          data: ["蒸发量", "降水量", "平均温度"],
+          data: ["保养次数", "保养计划开始平均偏差", "保养时长平均偏差"],
           bottom: 0
         },
         xAxis: [
@@ -234,20 +234,30 @@ export default {
         ],
         series: [
           {
-            name: "计划",
+            name: "保养次数",
             type: "bar",
-            data: this.series.planData
+            data: this.series.actualData,
+            itemStyle: {
+              color: "#1E90FF"
+            }
           },
           {
-            name: "实际",
-            type: "bar",
-            data: this.series.actualData
-          },
-          {
-            name: "完成率",
+            name: "保养计划开始平均偏差",
             type: "line",
             yAxisIndex: 1,
-            data: this.series.rateData
+            data: this.series.planData,
+            lineStyle: {
+              color: "#FF9090"
+            }
+          },
+          {
+            name: "保养时长平均偏差",
+            type: "line",
+            yAxisIndex: 1,
+            data: this.series.rateData,
+            lineStyle: {
+              color: "#3CB371"
+            }
           }
         ]
       };
