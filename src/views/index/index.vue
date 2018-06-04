@@ -388,7 +388,12 @@
 </template>
 <script>
 const moment = require("moment");
-import { getMapData, getElevatorMonitoring, getElevatorInfo, getTheFault } from "../../service/indexnet.js";
+import {
+  getMapData,
+  getElevatorMonitoring,
+  getElevatorInfo,
+  getTheFault
+} from "../../service/indexnet.js";
 import left1 from "./left1.vue";
 import left2 from "./left2.vue";
 import left3 from "./left3.vue";
@@ -830,9 +835,19 @@ export default {
     //this.getData();
     this.$on("changeParam", this.onParamChange);
     this.myChart = echarts.init(document.getElementById("indexMap"));
-    this.myChart.on("click", function (params) {
+    this.myChart.on("click", params => {
       console.log(params);
-      let id = params.value[4];
+      let obj = { id: params.data.id };
+      let isError = params.data.isError;
+      if (isError) {
+        getTheFault(obj).then(res => {
+          this.theFaultModal = true;
+        });
+      } else {
+        getElevatorInfo(obj).then(res => {
+          this.elevatorInfoModal = true;
+        });
+      }
     });
   },
   methods: {
@@ -952,7 +967,7 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: function (params) {
+          formatter: function(params) {
             let num = (params.data.value[2] * 100).toFixed(2);
             let temp = `${params.data.name} <br/>
             维保率：${num}%`;
@@ -1107,7 +1122,7 @@ export default {
             label: {
               normal: {
                 show: true,
-                formatter: function (params) {
+                formatter: function(params) {
                   return params.data.value[3];
                 },
                 textStyle: {
@@ -1134,7 +1149,7 @@ export default {
             label: {
               normal: {
                 show: true,
-                formatter: function (params) {
+                formatter: function(params) {
                   return params.data.value[3];
                 },
                 textStyle: {
@@ -1157,7 +1172,7 @@ export default {
             type: "effectScatter",
             coordinateSystem: "bmap",
             data: convertData(_this.mapConfig.data, 3),
-            symbolSize: function (val) {
+            symbolSize: function(val) {
               let size =
                 _this.mapConfig.typeStyle.type.indexOf(2) !== -1
                   ? val[2] * 35
@@ -1178,7 +1193,7 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: function (args) {
+                color: function(args) {
                   let [color, val] = ["", args.data.value[2]];
                   if (_this.mapConfig.typeStyle.type.indexOf(2) !== -1) {
                     color =
@@ -1218,7 +1233,7 @@ export default {
         this.mapConfig.center = [bmap.getCenter().lng, bmap.getCenter().lat];
         this.$emit("changeParam", { mapZoom: this.mapConfig.zoom });
       });
-      bmap.addEventListener("click", function (type) {
+      bmap.addEventListener("click", function(type) {
         return false;
       });
     },
@@ -1246,7 +1261,7 @@ export default {
         //this.formatData(this.res); //evt.data
       };
 
-      this.ws.onclose = evt => { };
+      this.ws.onclose = evt => {};
     },
     onParamChange(data) {
       this.wsParam = Object.assign(this.wsParam, data);
@@ -1278,7 +1293,7 @@ export default {
       }
       return "#fff";
     },
-    showElevatorMonitoring() { },
+    showElevatorMonitoring() {},
     elevatorErrorDataOperate(index) {
       console.log(index);
     },
