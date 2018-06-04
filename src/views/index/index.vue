@@ -734,7 +734,7 @@ export default {
           applyPerson: "LLL",
           phone: "13812345678",
           applyDate: "2015-2-12 19:23",
-          errorDesc: "十年生死两茫茫，不思量，自难忘。"
+          errorDesc: "门机故障，困人"
         },
         repairDataList: [
           {
@@ -755,7 +755,7 @@ export default {
               {
                 time: "20:17",
                 type: "text",
-                title: "自动派单成功自动派单成功",
+                title: "自动派单成功",
                 timeDifference: "3分",
                 infoList: [
                   { name: "维修人", value: "123455" },
@@ -810,7 +810,8 @@ export default {
             timeDataList: [
               {
                 time: "20:13",
-                type: "text"
+                type: "text",
+                title: "报修"
               }
             ]
           },
@@ -819,7 +820,8 @@ export default {
             timeDataList: [
               {
                 time: "20:13",
-                type: "text"
+                type: "text",
+                title: "报修"
               }
             ]
           }
