@@ -269,7 +269,7 @@
                     <div class="name">更新时间</div>
                     <div class="value">-</div>
                   </div>
-                  <div class="bottom-btn">
+                  <div class="bottom-btn" v-if="false">
                     <Button>查看详情</Button> 
                   </div>               
                 </div>

@@ -1,5 +1,14 @@
 <style  scoped lang="less">
-
+.dayevent {
+  padding: 10px 0;
+  .con {
+    width: 70%;
+    margin: auto;
+  }
+  .mar-b10 {
+    margin-bottom: 10px;
+  }
+}
 </style>
 
 <template>
@@ -10,7 +19,7 @@
         <Col span="12">
         <div>
            <Row>
-              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue"><router-link :to="{ path: 'dayevent'}" target="_blank">{{list.dayEventWarn}}起</router-link></span></Col>
+              <Col span="12"><span class="text-middle-white">日事件报警总数：</span><br><span class="text-large-blue" @click="getModelData()">{{list.dayEventWarn}}起</span></Col>
               <Col span="12"><span class="text-middle-white">日事件已处理数：</span><br><span class="text-large-blue">{{list.dayEventHandle}}起</span></Col>
           </Row>
           <Row>
@@ -38,11 +47,39 @@
          <div  id="chart3"  style="width: 100%;height:100%;min-height:200px;"></div>
         </Col>
     </Row>
+      <Modal
+        v-model="modalData.show"
+        title="" width="1200">
+        <div class="dayevent">
+        <p class="text-center text-large-black mar-b10">{{modalData.title}}</p>
+        <div class="con">
+            <div class="mar-b10">
+                <Select v-model="modalData.param.selectInfor" style="width:100px" @on-change="selectData()" placeholder="信息来源">
+                    <Option v-for="item in modalData.inforList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+                <Select v-model="modalData.param.selectHandel" style="width:100px" @on-change="selectData()" placeholder="处理状态">
+                    <Option v-for="item in modalData.handelList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+            </div>
+            <Table :columns="modalData.tableTitle" :data="modalData.tableList" class="mar-b10"></Table>
+            <div style="margin-bottom: 32px;">
+                <Page :total="modalData.pageTotle" class="right" show-sizer @on-change="getData()"></Page>
+            </div>
+            
+        </div>
+        <div>
+
+        </div>
+        </div>
+    </Modal>
   </div>
 </template>
 <script>
 import Filter from "../../utils/filter";
-import { getDayHandleData } from "../../service/indexnet.js";
+import {
+  getDayHandleData,
+  getDayHandleDetail
+} from "../../service/indexnet.js";
 var $ = require("jquery");
 export default {
   name: "left1",
@@ -54,7 +91,23 @@ export default {
       chart2: {},
       chart3: {},
       oldVideoSrc: "",
-      leftdata: ""
+      leftdata: "",
+      modalData: {
+        show: false,
+        title: "当日报警列表",
+        disabledGroup: "维保单位",
+        inforList: [],
+        handelList: [],
+        tableTitle: [],
+        tableList: [],
+        pageTotle: 100, //列表总数
+        param: {
+          pageSize: 10,
+          pageIndex: 0, //第几页
+          selectInfor: "",
+          selectHandel: ""
+        }
+      }
     };
   },
   props: ["myMessage"],
@@ -278,6 +331,24 @@ export default {
       };
 
       myChart.setOption(option);
+    },
+    getModelData() {
+      console.log(this.param);
+      getDayHandleDetail(this.param).then(res => {
+        var data = Filter.initialTolowerCase(res);
+        this.modalData.inforList = data.sourceInfor;
+        this.modalData.handelList = data.handelStatus;
+        this.modalData.tableTitle = data.tableTitle;
+        this.modalData.tableList = data.tableList;
+        this.modalData.pageTotle = data.pageTotle;
+        this.modalData.param.pageIndex += 1;
+        this.modalData.show = true;
+      });
+    },
+    selectData() {
+      //筛选数据时 页数置为1
+      this.modalData.param.pageIndex = 0;
+      this.getModelData();
     }
   }
 };
