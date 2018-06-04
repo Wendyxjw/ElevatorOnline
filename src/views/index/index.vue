@@ -195,7 +195,7 @@
                   <Checkbox label="故障分布"></Checkbox>
               </CheckboxGroup>
             </div>
-            <p class="text-middle-white text-center">蛟驰科技</p>
+            <!-- <p class="text-middle-white text-center">蛟驰科技</p> -->
           <div class="text-middle-white " >
             <!-- 1.维保率在85%以上绿色,60%-85%黄绿,60%以下黄色<br>
             2.故障点显示红色。<br>
@@ -738,7 +738,7 @@ export default {
         },
         repairDataList: [
           {
-            tabName: "张三",
+            tabName: "张心宇",
             timeDataList: [
               {
                 time: "20:10",
@@ -793,7 +793,7 @@ export default {
             ]
           },
           {
-            tabName: "李四",
+            tabName: "姜珊",
             timeDataList: [
               {
                 time: "20:11",
@@ -806,7 +806,16 @@ export default {
             ]
           },
           {
-            tabName: "哈哈哈",
+            tabName: "金艺",
+            timeDataList: [
+              {
+                time: "20:13",
+                type: "text"
+              }
+            ]
+          },
+          {
+            tabName: "柯维宇",
             timeDataList: [
               {
                 time: "20:13",

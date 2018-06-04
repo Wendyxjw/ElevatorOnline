@@ -52,63 +52,63 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
             map: {
                 //位置参数
                 data: [{
-                    name: "月湖公园",
-                    value: 0.88, //百分比
-                    num: 11, //数量
-                    id: 9578,
-                    isError: false, //是否故障
-                    xys: [121.549234, 29.874051], //坐标
-                    table: [{
-                        SNo: 1, //电梯编号
-                        Code: "", //所属区域
-                        AD: "", //详细地址
-                        eventInfor: "", //事件信息
-                        isTrapped: 1, //是否困人：1 是 ，0 否
-                        alarmTel: 13412341234, //报警电话
-                        state: "", //状态
-                        resoult: "" //处理结果
+                        name: "月湖公园",
+                        value: 0.88, //百分比
+                        num: 11, //数量
+                        id: 9578,
+                        isError: false, //是否故障
+                        xys: [121.549234, 29.874051], //坐标
+                        table: [{
+                            SNo: 1, //电梯编号
+                            Code: "", //所属区域
+                            AD: "", //详细地址
+                            eventInfor: "", //事件信息
+                            isTrapped: 1, //是否困人：1 是 ，0 否
+                            alarmTel: 13412341234, //报警电话
+                            state: "", //状态
+                            resoult: "" //处理结果
 
-                    }]
-                },
-                {
-                    name: "宁波东站",
-                    value: 0.38,
-                    num: 1,
-                    id: 9578,
-                    isError: true, //是否故障
-                    table: [{
-                        title: "电梯编号", //标题
-                        value: "123" // 具体内容
-                    }]
-                },
-                {
-                    name: "宁波体育中心",
-                    value: 0.95,
-                    num: 1,
-                    id: 9578,
-                    isError: false, //是否故障
-                },
-                {
-                    name: "科技公园",
-                    value: 0.6,
-                    num: 4,
-                    id: 9578,
-                    isError: true, //是否故障
-                },
-                {
-                    name: "四安文化乐园",
-                    value: 0.5,
-                    num: 20,
-                    id: 9578,
-                    isError: false, //是否故障
-                },
-                {
-                    name: "体育馆",
-                    value: 1.0,
-                    num: 30,
-                    id: 9578,
-                    isError: true, //是否故障
-                }
+                        }]
+                    },
+                    {
+                        name: "宁波东站",
+                        value: 0.38,
+                        num: 1,
+                        id: 9578,
+                        isError: true, //是否故障
+                        table: [{
+                            title: "电梯编号", //标题
+                            value: "123" // 具体内容
+                        }]
+                    },
+                    {
+                        name: "宁波体育中心",
+                        value: 0.95,
+                        num: 1,
+                        id: 9578,
+                        isError: false, //是否故障
+                    },
+                    {
+                        name: "科技公园",
+                        value: 0.6,
+                        num: 4,
+                        id: 9578,
+                        isError: true, //是否故障
+                    },
+                    {
+                        name: "四安文化乐园",
+                        value: 0.5,
+                        num: 20,
+                        id: 9578,
+                        isError: false, //是否故障
+                    },
+                    {
+                        name: "体育馆",
+                        value: 1.0,
+                        num: 30,
+                        id: 9578,
+                        isError: true, //是否故障
+                    }
                 ],
                 //地图坐标
                 geoCoordMap: {
@@ -141,61 +141,61 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                 }],
                 //第一个饼图数据
                 Chart1: [{
-                    Value: 335,
-                    Name: "直接访问"
-                },
-                {
-                    Value: 310,
-                    Name: "邮件营销"
-                },
-                {
-                    Value: 234,
-                    Name: "联盟广告"
-                }
+                        Value: 335,
+                        Name: "直接访问"
+                    },
+                    {
+                        Value: 310,
+                        Name: "邮件营销"
+                    },
+                    {
+                        Value: 234,
+                        Name: "联盟广告"
+                    }
                 ],
                 //第二个饼图数据
                 Chart2: [{
-                    Value: 335,
-                    Name: "直接访问"
-                },
-                {
-                    Value: 310,
-                    Name: "邮件营销"
-                },
-                {
-                    Value: 234,
-                    Name: "联盟广告"
-                },
-                {
-                    Value: 135,
-                    Name: "视频广告"
-                },
-                {
-                    Value: 1548,
-                    Name: "视频广告"
-                }
+                        Value: 335,
+                        Name: "直接访问"
+                    },
+                    {
+                        Value: 310,
+                        Name: "邮件营销"
+                    },
+                    {
+                        Value: 234,
+                        Name: "联盟广告"
+                    },
+                    {
+                        Value: 135,
+                        Name: "视频广告"
+                    },
+                    {
+                        Value: 1548,
+                        Name: "视频广告"
+                    }
                 ],
                 //第三个饼图数据
                 Chart3: [{
-                    Value: 335,
-                    Name: "直接访问"
-                },
-                {
-                    Value: 310,
-                    Name: "邮件营销"
-                },
-                {
-                    Value: 234,
-                    Name: "联盟广告"
-                },
-                {
-                    Value: 135,
-                    Name: "视频广告"
-                },
-                {
-                    Value: 1548,
-                    Name: "sssss"
-                }
+                        Value: 335,
+                        Name: "直接访问"
+                    },
+                    {
+                        Value: 310,
+                        Name: "邮件营销"
+                    },
+                    {
+                        Value: 234,
+                        Name: "联盟广告"
+                    },
+                    {
+                        Value: 135,
+                        Name: "视频广告"
+                    },
+                    {
+                        Value: 1548,
+                        Name: "sssss"
+                    }
                 ],
                 videoSrc: "" //视频地址
             },
@@ -203,34 +203,34 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
             warnEventList: {
                 //列头
                 tableTitle: [{
-                    Title: '时间',
-                    Key: 'time'
-                },
-                {
-                    Title: '地点',
-                    Key: 'address'
-                },
-                {
-                    Title: '类型',
-                    Key: 'type'
-                }
+                        Title: '时间',
+                        Key: 'time'
+                    },
+                    {
+                        Title: '地点',
+                        Key: 'address'
+                    },
+                    {
+                        Title: '类型',
+                        Key: 'type'
+                    }
                 ],
                 //列表内容
                 tableList: [{
-                    Time: 'Sun Feb 5 2018 15:23:20 GMT+0800',
-                    Address: "1123",
-                    Type: '1New York No. 1 Lake Park',
-                },
-                {
-                    Time: 'Sun Feb 15 2018 15:23:20 GMT+0800',
-                    Address: "天目山路古墩路口2123",
-                    Type: '2New York No. 1 Lake Park',
-                },
-                {
-                    Time: 'Sun Feb 25 2018 15:23:20 GMT+0800',
-                    Address: "我爱北京天安门3123",
-                    Type: '3New York No. 1 Lake Park',
-                }
+                        Time: 'Sun Feb 5 2018 15:23:20 GMT+0800',
+                        Address: "1123",
+                        Type: '1New York No. 1 Lake Park',
+                    },
+                    {
+                        Time: 'Sun Feb 15 2018 15:23:20 GMT+0800',
+                        Address: "天目山路古墩路口2123",
+                        Type: '2New York No. 1 Lake Park',
+                    },
+                    {
+                        Time: 'Sun Feb 25 2018 15:23:20 GMT+0800',
+                        Address: "我爱北京天安门3123",
+                        Type: '3New York No. 1 Lake Park',
+                    }
                 ]
             },
             //左3
@@ -252,17 +252,17 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                 MaintenanceUnit: 100, //维保单位
                 //下拉列表数据
                 CityList: [{
-                    value: '全市',
-                    label: '全市'
-                },
-                {
-                    value: '北仑区',
-                    label: '北仑区'
-                },
-                {
-                    value: '海曙区',
-                    label: '海曙区'
-                }
+                        value: '全市',
+                        label: '全市'
+                    },
+                    {
+                        value: '北仑区',
+                        label: '北仑区'
+                    },
+                    {
+                        value: '海曙区',
+                        label: '海曙区'
+                    }
                 ]
             },
             //右2
@@ -278,69 +278,69 @@ Mock.mock('/api/index/Getindex', 'get', (req, res) => {
                     //x轴坐标文案
                     xText: ["电梯1", "电梯2", "电梯3", "电梯4", "电梯5"],
                     list: [{
-                        name: "Forest",
-                        data: [320, 332, 301, 334, 390]
-                    },
-                    {
-                        name: "Steppe",
-                        data: [220, 182, 191, 234, 290]
-                    },
-                    {
-                        name: "Desert",
-                        data: [150, 232, 201, 154, 190]
-                    },
-                    {
-                        name: "Wetland",
-                        data: [98, 77, 101, 99, 40]
-                    }
+                            name: "Forest",
+                            data: [320, 332, 301, 334, 390]
+                        },
+                        {
+                            name: "Steppe",
+                            data: [220, 182, 191, 234, 290]
+                        },
+                        {
+                            name: "Desert",
+                            data: [150, 232, 201, 154, 190]
+                        },
+                        {
+                            name: "Wetland",
+                            data: [98, 77, 101, 99, 40]
+                        }
                     ]
                 },
                 chart2: {
                     xText: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
                     list: [{
-                        name: "邮件营销",
-                        data: [120, 132, 101, 134, 90, 230, 210]
-                    },
-                    {
-                        name: "联盟广告",
-                        data: [220, 182, 191, 234, 290, 330, 310]
-                    },
-                    {
-                        name: "视频广告",
-                        data: [150, 232, 201, 154, 190, 330, 410]
-                    },
-                    {
-                        name: "直接访问",
-                        data: [320, 332, 301, 334, 390, 330, 320]
-                    },
-                    {
-                        name: "搜索引擎",
-                        data: [820, 932, 901, 934, 1290, 1330, 1320]
-                    }
+                            name: "邮件营销",
+                            data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: "联盟广告",
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: "视频广告",
+                            data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                            name: "直接访问",
+                            data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: "搜索引擎",
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
                     ]
                 },
                 chart3: {
                     xText: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
                     list: [{
-                        name: "邮件营销",
-                        data: [120, 132, 101, 134, 90, 230, 210]
-                    },
-                    {
-                        name: "联盟广告",
-                        data: [220, 182, 191, 234, 290, 330, 310]
-                    },
-                    {
-                        name: "视频广告",
-                        data: [150, 232, 201, 154, 190, 330, 410]
-                    },
-                    {
-                        name: "直接访问",
-                        data: [320, 332, 301, 334, 390, 330, 320]
-                    },
-                    {
-                        name: "搜索引擎",
-                        data: [820, 932, 901, 934, 1290, 1330, 1320]
-                    }
+                            name: "邮件营销",
+                            data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: "联盟广告",
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: "视频广告",
+                            data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                            name: "直接访问",
+                            data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: "搜索引擎",
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
                     ]
                 }
             }
@@ -367,106 +367,106 @@ Mock.mock('/api/index/DayHandleDetail', 'post', (req, res) => {
         Data: {
             //信息来源
             sourceInfor: [{
-                value: "全部来源",
-                label: "全部来源"
-            }, {
-                value: "物业",
-                label: "物业"
-            },
-            {
-                value: "北仑区",
-                label: "北仑区"
-            },
-            {
-                value: "海曙区",
-                label: "海曙区"
-            }
+                    value: "全部来源",
+                    label: "全部来源"
+                }, {
+                    value: "物业",
+                    label: "物业"
+                },
+                {
+                    value: "北仑区",
+                    label: "北仑区"
+                },
+                {
+                    value: "海曙区",
+                    label: "海曙区"
+                }
             ],
             //处理状态
             handelStatus: [{
-                value: "全部状态",
-                label: "全部状态"
-            },
-            {
-                value: "待响应",
-                label: "待响应"
-            },
-            {
-                value: "处理中",
-                label: "处理中"
-            },
-            {
-                value: "已完成",
-                label: "已完成"
-            }
+                    value: "全部状态",
+                    label: "全部状态"
+                },
+                {
+                    value: "待响应",
+                    label: "待响应"
+                },
+                {
+                    value: "处理中",
+                    label: "处理中"
+                },
+                {
+                    value: "已完成",
+                    label: "已完成"
+                }
             ],
             //表头
             tableTitle: [{
-                title: "序号",
-                key: "id"
-            },
-            {
-                title: "区域",
-                key: "district"
-            },
-            {
-                title: "注册代码",
-                key: "registerCode"
-            },
-            {
-                title: "故障代码",
-                key: "errorCode"
-            },
-            {
-                title: "故障说明",
-                key: "errorDesc"
-            },
-            {
-                title: "故障时间",
-                key: "errorDate"
-            },
-            {
-                title: "故障状态",
-                key: "errorState"
-            }
+                    title: "序号",
+                    key: "id"
+                },
+                {
+                    title: "区域",
+                    key: "district"
+                },
+                {
+                    title: "注册代码",
+                    key: "registerCode"
+                },
+                {
+                    title: "故障代码",
+                    key: "errorCode"
+                },
+                {
+                    title: "故障说明",
+                    key: "errorDesc"
+                },
+                {
+                    title: "故障时间",
+                    key: "errorDate"
+                },
+                {
+                    title: "故障状态",
+                    key: "errorState"
+                }
             ],
             //列表内容
             tableList: [{
-                id: 123,
-                district: '宁波',
-                registerCode: 1234567899082,
-                errorCode: 112,
-                errorDesc: '电梯门打不开',
-                errorDate: '2018-5-28',
-                errorState: '已派单',
-            },
-            {
-                id: 124,
-                district: '杭州',
-                registerCode: 234367456456,
-                errorCode: 123,
-                errorDesc: '电梯门打不开',
-                errorDate: '2018-5-18',
-                errorState: '已完成',
-            },
-            {
-                id: 1223,
-                district: '上海',
-                registerCode: 23426743245,
-                errorCode: 114,
-                errorDesc: '电梯没空调',
-                errorDate: '2018-5-31',
-                errorState: '已派单',
-            },
-            {
-                id: 6123,
-                district: '重庆',
-                registerCode: 12465335345,
-                errorCode: 151,
-                errorDesc: '电梯没反应',
-                errorDate: '2018-5-29',
-                errorState: '已派单',
-            },
+                    id: 123,
+                    district: '宁波',
+                    registerCode: 1234567899082,
+                    errorCode: 112,
+                    errorDesc: '电梯门打不开',
+                    errorDate: '2018-5-28',
+                    errorState: '已派单',
+                },
+                {
+                    id: 124,
+                    district: '杭州',
+                    registerCode: 234367456456,
+                    errorCode: 123,
+                    errorDesc: '电梯门打不开',
+                    errorDate: '2018-5-18',
+                    errorState: '已完成',
+                },
+                {
+                    id: 1223,
+                    district: '上海',
+                    registerCode: 23426743245,
+                    errorCode: 114,
+                    errorDesc: '电梯没空调',
+                    errorDate: '2018-5-31',
+                    errorState: '已派单',
+                },
+                {
+                    id: 6123,
+                    district: '重庆',
+                    registerCode: 12465335345,
+                    errorCode: 151,
+                    errorDesc: '电梯没反应',
+                    errorDate: '2018-5-29',
+                    errorState: '已派单',
+                },
             ],
             //共有几条数据
             pageTotle: 100
@@ -483,53 +483,53 @@ Mock.mock('/api/index/MaintenanceRate', 'get', (req, res) => {
         Data: {
             //表头
             tableTitle: [{
-                title: "区域",
-                key: "address"
-            },
-            {
-                title: "计划",
-                key: "plan"
-            },
-            {
-                title: "实际",
-                key: "actual"
-            },
-            {
-                title: "完成率",
-                key: "rate"
-            }
+                    title: "区域",
+                    key: "address"
+                },
+                {
+                    title: "计划",
+                    key: "plan"
+                },
+                {
+                    title: "实际",
+                    key: "actual"
+                },
+                {
+                    title: "完成率",
+                    key: "rate"
+                }
             ],
             //列表内容
             tableList: [{
-                address: "华北",
-                plan: 2.0,
-                actual: 4.9,
-                rate: 7.0
-            },
-            {
-                address: "华东",
-                plan: 4.0,
-                actual: 8.9,
-                rate: 3.0
-            },
-            {
-                address: "华南",
-                plan: 2.0,
-                actual: 6.9,
-                rate: 0.6
-            },
-            {
-                address: "东北",
-                plan: 1.0,
-                actual: 6.9,
-                rate: 2.0
-            },
-            {
-                address: "西北西南",
-                plan: 12.0,
-                actual: 14.9,
-                rate: 0.1
-            }
+                    address: "华北",
+                    plan: 2.0,
+                    actual: 4.9,
+                    rate: 7.0
+                },
+                {
+                    address: "华东",
+                    plan: 4.0,
+                    actual: 8.9,
+                    rate: 3.0
+                },
+                {
+                    address: "华南",
+                    plan: 2.0,
+                    actual: 6.9,
+                    rate: 0.6
+                },
+                {
+                    address: "东北",
+                    plan: 1.0,
+                    actual: 6.9,
+                    rate: 2.0
+                },
+                {
+                    address: "西北西南",
+                    plan: 12.0,
+                    actual: 14.9,
+                    rate: 0.1
+                }
             ],
 
         },
@@ -544,47 +544,47 @@ Mock.mock('/api/index/MapData', 'post', (req, res) => {
         Data: {
             //位置参数
             data: [{
-                name: "月湖公园",
-                value: 0.88, //百分比
-                num: 10, //数量
-                id: 9578,
-                isError: false, //是否故障
-            },
-            {
-                name: "宁波东站",
-                value: 0.38,
-                num: 5,
-                id: 9578,
-                isError: true, //是否故障
-            },
-            {
-                name: "宁波体育中心",
-                value: 0.95,
-                num: 1,
-                id: 9578,
-                isError: false, //是否故障
-            },
-            {
-                name: "科技公园",
-                value: 0.6,
-                num: 4,
-                id: 9578,
-                isError: true, //是否故障
-            },
-            {
-                name: "四安文化乐园",
-                value: 0.5,
-                num: 20,
-                id: 9578,
-                isError: false, //是否故障
-            },
-            {
-                name: "体育馆",
-                value: 1.0,
-                num: 30,
-                id: 9578,
-                isError: true, //是否故障
-            }
+                    name: "月湖公园",
+                    value: 0.88, //百分比
+                    num: 10, //数量
+                    id: 9578,
+                    isError: false, //是否故障
+                },
+                {
+                    name: "宁波东站",
+                    value: 0.38,
+                    num: 5,
+                    id: 9578,
+                    isError: true, //是否故障
+                },
+                {
+                    name: "宁波体育中心",
+                    value: 0.95,
+                    num: 1,
+                    id: 9578,
+                    isError: false, //是否故障
+                },
+                {
+                    name: "科技公园",
+                    value: 0.6,
+                    num: 4,
+                    id: 9578,
+                    isError: true, //是否故障
+                },
+                {
+                    name: "四安文化乐园",
+                    value: 0.5,
+                    num: 20,
+                    id: 9578,
+                    isError: false, //是否故障
+                },
+                {
+                    name: "体育馆",
+                    value: 1.0,
+                    num: 30,
+                    id: 9578,
+                    isError: true, //是否故障
+                }
             ],
             //地图坐标
             geoCoordMap: {
@@ -611,185 +611,185 @@ Mock.mock('/api/index/ElevatorInfo', 'post', (req, res) => {
             errorData: {
                 //电梯错误信息
                 tableTitle: [{
-                    title: "序号",
-                    key: "id"
-                },
-                {
-                    title: "告警时间",
-                    key: "time"
-                },
-                {
-                    title: "事故类型",
-                    key: "eventType"
-                },
-                {
-                    title: "故障描述",
-                    key: "errorDesc"
-                },
-                {
-                    title: "处理阶段",
-                    key: "phase"
-                },
-                {
-                    title: "状态",
-                    key: "state"
-                },
+                        title: "序号",
+                        key: "id"
+                    },
+                    {
+                        title: "告警时间",
+                        key: "time"
+                    },
+                    {
+                        title: "事故类型",
+                        key: "eventType"
+                    },
+                    {
+                        title: "故障描述",
+                        key: "errorDesc"
+                    },
+                    {
+                        title: "处理阶段",
+                        key: "phase"
+                    },
+                    {
+                        title: "状态",
+                        key: "state"
+                    },
                 ],
                 tableList: [{
-                    id: 123,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 123,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 123,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 4,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 5,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 6,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 7,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 8,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 9,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 10,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                },
-                {
-                    id: 11,
-                    time: "2016-5-21 14:22",
-                    eventType: "困人",
-                    errorDesc: "遁地",
-                    phase: "已接警",
-                    state: "处理中"
-                }
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 123,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 4,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 5,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 6,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 7,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 8,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 9,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 10,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    },
+                    {
+                        id: 11,
+                        time: "2016-5-21 14:22",
+                        eventType: "困人",
+                        errorDesc: "遁地",
+                        phase: "已接警",
+                        state: "处理中"
+                    }
                 ]
             },
             basicData: {
                 //电梯基本信息
                 tableTitle: [{
-                    title: "",
-                    key: "name1",
-                    align: "center"
-                },
-                {
-                    title: "",
-                    key: "value1",
-                    align: "center"
-                },
-                {
-                    title: "",
-                    key: "name2",
-                    align: "center"
-                },
-                {
-                    title: "",
-                    key: "value2",
-                    align: "center"
-                }
+                        title: "",
+                        key: "name1",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "value1",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "name2",
+                        align: "center"
+                    },
+                    {
+                        title: "",
+                        key: "value2",
+                        align: "center"
+                    }
                 ],
                 tableList: [{
-                    name1: "电梯注册编号：",
-                    value1: 3303872299118,
-                    name2: "电梯救援识别码:",
-                    value2: null
-                },
-                {
-                    name1: "电梯安装地址：",
-                    value1: "天蓝心广场-1",
-                    name2: "所在区域:",
-                    value2: "天蓝心广场"
-                },
-                {
-                    name1: "电梯所在省市县（区）：",
-                    value1: "柯桥区",
-                    name2: "电梯类型:",
-                    value2: "乘客电梯"
-                },
-                {
-                    name1: "电梯品牌：",
-                    value1: "",
-                    name2: "电梯型号:",
-                    value2: ""
-                },
-                {
-                    name1: "使用单位：",
-                    value1: "绍兴市华联物业有限公司（天蓝心广场-1）",
-                    name2: "电梯维保单位:",
-                    value2: "绍兴市华联物业有限公司"
-                },
-                {
-                    name1: "制造单位：",
-                    value1: "",
-                    name2: "电梯安装单位:",
-                    value2: ""
-                },
-                {
-                    name1: "电梯地址：",
-                    value1: "",
-                    name2: "电梯使用状态:",
-                    value2: "正常"
-                }
+                        name1: "电梯注册编号：",
+                        value1: 3303872299118,
+                        name2: "电梯救援识别码:",
+                        value2: null
+                    },
+                    {
+                        name1: "电梯安装地址：",
+                        value1: "天蓝心广场-1",
+                        name2: "所在区域:",
+                        value2: "天蓝心广场"
+                    },
+                    {
+                        name1: "电梯所在省市县（区）：",
+                        value1: "柯桥区",
+                        name2: "电梯类型:",
+                        value2: "乘客电梯"
+                    },
+                    {
+                        name1: "电梯品牌：",
+                        value1: "",
+                        name2: "电梯型号:",
+                        value2: ""
+                    },
+                    {
+                        name1: "使用单位：",
+                        value1: "绍兴市华联物业有限公司（天蓝心广场-1）",
+                        name2: "电梯维保单位:",
+                        value2: "绍兴市华联物业有限公司"
+                    },
+                    {
+                        name1: "制造单位：",
+                        value1: "",
+                        name2: "电梯安装单位:",
+                        value2: ""
+                    },
+                    {
+                        name1: "电梯地址：",
+                        value1: "",
+                        name2: "电梯使用状态:",
+                        value2: "正常"
+                    }
                 ]
             }
         },
@@ -811,97 +811,104 @@ Mock.mock('/api/index/TheFault', 'post', (req, res) => {
                 errorDesc: "十年生死两茫茫，不思量，自难忘。"
             },
             repairDataList: [{
-                tabName: "张三",
-                timeDataList: [{
-                    time: "20:10",
-                    type: "text",
-                    title: "报修",
-                    timeDifference: "3分"
-                },
-                {
-                    time: "20:13",
-                    type: "text",
-                    title: "自动派单",
-                    timeDifference: "4分"
-                },
-                {
-                    time: "20:17",
-                    type: "text",
-                    title: "自动派单成功自动派单成功",
-                    timeDifference: "3分",
-                    infoList: [{
-                        name: "维修人",
-                        value: "123455"
-                    },
-                    {
-                        name: "联系方式",
-                        value: "123455"
-                    },
-                    {
-                        name: "出发时间",
-                        value: "2015-2-12 20:12"
-                    },
-                    {
-                        name: "到达时间",
-                        value: "2015-2-12 20:24"
-                    }
+                    tabName: "张心宇",
+                    timeDataList: [{
+                            time: "20:10",
+                            type: "text",
+                            title: "报修",
+                            timeDifference: "3分"
+                        },
+                        {
+                            time: "20:13",
+                            type: "text",
+                            title: "自动派单",
+                            timeDifference: "4分"
+                        },
+                        {
+                            time: "20:17",
+                            type: "text",
+                            title: "自动派单成功自动派单成功",
+                            timeDifference: "3分",
+                            infoList: [{
+                                    name: "维修人",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "联系方式",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "出发时间",
+                                    value: "2015-2-12 20:12"
+                                },
+                                {
+                                    name: "到达时间",
+                                    value: "2015-2-12 20:24"
+                                }
+                            ]
+                        },
+                        {
+                            time: "20:20",
+                            type: "text",
+                            title: "报修",
+                            timeDifference: "",
+                            infoList: [{
+                                    name: "维修人",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "联系方式",
+                                    value: "123455"
+                                },
+                                {
+                                    name: "出发时间",
+                                    value: "2015-2-12 20:12"
+                                },
+                                {
+                                    name: "到达时间",
+                                    value: "2015-2-12 20:24"
+                                }
+                            ]
+                        },
+                        {
+                            time: "20:13",
+                            type: "detail",
+                            title: "自动派单",
+                            timeDifference: "4分"
+                        },
+                        {
+                            time: "20:11",
+                            type: "img",
+                            title: "报修",
+                            timeDifference: "",
+                            imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
+                        }
                     ]
                 },
                 {
-                    time: "20:20",
-                    type: "text",
-                    title: "报修",
-                    timeDifference: "",
-                    infoList: [{
-                        name: "维修人",
-                        value: "123455"
-                    },
-                    {
-                        name: "联系方式",
-                        value: "123455"
-                    },
-                    {
-                        name: "出发时间",
-                        value: "2015-2-12 20:12"
-                    },
-                    {
-                        name: "到达时间",
-                        value: "2015-2-12 20:24"
-                    }
-                    ]
+                    tabName: "姜珊",
+                    timeDataList: [{
+                        time: "20:11",
+                        type: "img",
+                        title: "报修",
+                        timeDifference: "",
+                        imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
+                    }]
                 },
                 {
-                    time: "20:13",
-                    type: "detail",
-                    title: "自动派单",
-                    timeDifference: "4分"
+                    tabName: "金艺",
+                    timeDataList: [{
+                        time: "20:13",
+                        type: "text"
+                    }]
                 },
                 {
-                    time: "20:11",
-                    type: "img",
-                    title: "报修",
-                    timeDifference: "",
-                    imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
+                    tabName: "柯维宇",
+                    timeDataList: [{
+                        time: "20:13",
+                        type: "text"
+                    }]
                 }
-                ]
-            },
-            {
-                tabName: "李四",
-                timeDataList: [{
-                    time: "20:11",
-                    type: "img",
-                    title: "报修",
-                    timeDifference: "",
-                    imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528040650451&di=84e6990325f136dbf25ebb964b533ec3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg"
-                }]
-            },
-            {
-                tabName: "哈哈哈",
-                timeDataList: [{
-                    time: "20:13",
-                    type: "text"
-                }]
-            }
             ]
         },
         ErrorMessage: "",
