@@ -61,7 +61,7 @@
                     <Option v-for="item in modalData.handelList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
             </div>
-            <Table :columns="modalData.tableTitle" :data="modalData.tableList" class="mar-b10"></Table>
+            <Table :columns="modalData.tableTitle" :data="modalData.tableList" class="mar-b10" width="800"></Table>
             <div style="margin-bottom: 32px;">
                 <Page :total="modalData.pageTotle" class="right" show-sizer @on-change="getData()"></Page>
             </div>
