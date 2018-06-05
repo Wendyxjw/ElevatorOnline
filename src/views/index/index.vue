@@ -232,7 +232,7 @@
         <!-- 电梯运行信息 -->
         <Modal
         v-model="elevatorInfoModal"
-        width="1400"
+        width="1300"
         class-name="elevatorInfoModal">
         <header class="mtitle" >
             电梯监控
@@ -303,7 +303,7 @@
         <!-- 故障实时进展 -->
         <Modal
         v-model="theFaultModal"
-        width="1800"
+        width="1250"
         class-name="theFaultModal">
         <header class="mtitle pt-10" style="padding-left:40px;">
             故障实时进展
